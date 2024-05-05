@@ -4,12 +4,14 @@ import { Link, useParams } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import { useDispatch } from "react-redux";
 import { addCart } from "../redux/action";
+
 import img from "../img/r6.jpg"
 import { Footer, Navbar } from "../components";
 
 const Product = () => {
   const { id } = useParams();
   const [product, setProduct] = useState([]);
+
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
@@ -21,6 +23,7 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       setLoading(true);
+
     
       const response = await fetch(`http://localhost:7000/product/search/${id}`);
       const data = await response.json();
@@ -57,6 +60,7 @@ const Product = () => {
       </>
     );
   };
+
   
   
     let imgSrc;
@@ -78,6 +82,7 @@ const Product = () => {
           <div className="row">
             <div className="col-md-6 col-sm-12 py-3">
               {/* Empty div instead of image */}
+
           
               <div className="img-fluid" style={{ width: '400px', height: '400px', backgroundColor: '#ccc' }}>
 
@@ -110,8 +115,7 @@ const Product = () => {
     );
   };
 
- 
-  
+
   return (
     <>
       <Navbar />
@@ -125,6 +129,7 @@ const Product = () => {
               pauseOnClick={true}
               speed={50}
             >
+
            
             </Marquee>
           </div>

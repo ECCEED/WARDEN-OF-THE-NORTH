@@ -7,13 +7,15 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 
 
-import { Home, Product, Products, AboutPage, ContactPage, Cart,Computers, Login, Register, Checkout,Phones, PageNotFound, Hi, AddProduct, Upload,AddContract ,AddInsurance,Insurance, Claim, Categories , Confirm} from "./pages"
+
+import { Home, Product, Products, AboutPage, ContactPage, Cart,Computers, Login, Register, Checkout ,EmailVerify,ProfilePage,Phones,Updateprofile,FotgotPassword,Resetyoupassword, PageNotFound, Hi, AddProduct, Upload,AddContract ,AddInsurance,Insurance, Claim, Categories , Confirm} from "./pages"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Provider store={store}>
       <Routes>
+
         <Route path='/addProduct' element={<AddProduct />} />
         <Route path='/addInsurance' element={<AddInsurance />} />
         <Route path='/claim' element={<Claim/>} />
@@ -37,7 +39,14 @@ root.render(
         <Route path="/checkout" element={<Checkout />} />
         <Route path="*" element={<PageNotFound />} />
         <Route path="/product/*" element={<PageNotFound />} />
+        <Route path="/email_verify" element={<EmailVerify/>} />
+        <Route path="/profile" element={<ProfilePage/>} />
+        <Route path="/Updateprofile" element={<Updateprofile/>} />
+        <Route path="/Forgotpassword" element={<FotgotPassword/>} />
+        <Route path="/Resetyoupassword" element={<Resetyoupassword/>} />
+
       </Routes>
     </Provider>
   </BrowserRouter>
-);
+); 
+

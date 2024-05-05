@@ -4,6 +4,7 @@ import { addCart } from "../redux/action";
 
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+
 import img from "../img/r6.jpg"
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -24,6 +25,7 @@ const Products = () => {
     const getProducts = async () => {
       setLoading(true);
 
+
       const response = await axios.get("http://localhost:7000/product/allproducts");
       console.log("data ",response.data)
       if (componentMounted) {
@@ -35,7 +37,8 @@ const Products = () => {
       return () => {
         componentMounted = false;
       };
-    };  
+    };
+
 
     getProducts();
   }, []);
@@ -73,12 +76,12 @@ const Products = () => {
     setFilter(updatedList);
   }
 
- 
   const ShowProducts = () => {
     return (
       <>
         <div className="buttons text-center py-5">
           <button className="btn btn-outline-dark btn-sm m-2" onClick={() => setFilter(data)}>All</button>
+
           <button className="btn btn-outline-dark btn-sm m-2" onClick={() => filterProduct("Computers")}>Computers</button>
           <button className="btn btn-outline-dark btn-sm m-2" onClick={() => filterProduct("Phones")}>
             Phones
@@ -107,6 +110,7 @@ const Products = () => {
                 />
                 <div className="card-body">
                   <h5 className="card-title">
+
                     {product.name.substring(0, 12)}...
                   </h5>
                   <p className="card-text">
@@ -119,6 +123,7 @@ const Products = () => {
                     <li className="list-group-item">Vestibulum at eros</li> */}
                 </ul>
                 <div className="card-body">
+
                   <Link to={"/product/" + product._id} className="btn btn-dark m-1">
                     Buy Now
                   </Link>
@@ -128,6 +133,7 @@ const Products = () => {
                 </div>
               </div>
             </div>
+
           );
         })}
       </>

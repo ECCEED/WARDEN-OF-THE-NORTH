@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { Footer, Navbar } from "../components";
 import { useSelector } from "react-redux";
@@ -60,6 +61,7 @@ const Checkout = () => {
                       Shipping
                       <span>${shipping}</span>
                     </li>
+
                     <li className="list-group-item d-flex justify-content-between align-items-center px-0">
                       Insurance
                       <span>${insuranceValue}</span>
@@ -69,6 +71,7 @@ const Checkout = () => {
                         <strong>Total amount</strong>
                       </div>
                       <span>
+
                         <strong>${Math.round(subtotal + shipping + insuranceValue)}</strong>
                       </span>
                     </li>
@@ -82,6 +85,7 @@ const Checkout = () => {
                   <h4 className="mb-0">Billing address</h4>
                 </div>
                 <div className="card-body">
+
                   <form className="needs-validation" noValidate>
                     <div className="row g-3">
                       <div className="col-sm-6 my-1">
@@ -101,6 +105,7 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-sm-6 my-1">
+
                         <label htmlFor="lastName" className="form-label">
                           Last name
                         </label>
@@ -117,6 +122,7 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-12 my-1">
+
                         <label htmlFor="email" className="form-label">
                           Email
                         </label>
@@ -134,6 +140,7 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-12 my-1">
+
                         <label htmlFor="address" className="form-label">
                           Address
                         </label>
@@ -150,6 +157,7 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-12">
+
                         <label htmlFor="address2" className="form-label">
                           Address 2{" "}
                           <span className="text-muted">(Optional)</span>
@@ -163,6 +171,7 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-md-5 my-1">
+
                         <label htmlFor="country" className="form-label">
                           Country
                         </label>
@@ -177,6 +186,7 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-md-4 my-1">
+
                         <label htmlFor="state" className="form-label">
                           State
                         </label>
@@ -191,6 +201,7 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-md-3 my-1">
+
                         <label htmlFor="zip" className="form-label">
                           Zip
                         </label>
@@ -213,6 +224,7 @@ const Checkout = () => {
 
                     <div className="row gy-3">
                       <div className="col-md-6">
+
                         <label htmlFor="cc-name" className="form-label">
                           Name on card
                         </label>
@@ -232,6 +244,7 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-md-6">
+
                         <label htmlFor="cc-number" className="form-label">
                           Credit card number
                         </label>
@@ -248,6 +261,7 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-md-3">
+
                         <label htmlFor="cc-expiration" className="form-label">
                           Expiration
                         </label>
@@ -264,6 +278,7 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-md-3">
+
                         <label htmlFor="cc-cvv" className="form-label">
                           CVV
                         </label>
