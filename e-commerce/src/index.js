@@ -7,18 +7,31 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 
 
-import { Home, Product, Products, AboutPage, ContactPage, Cart, Login, Register, Checkout, PageNotFound,EmailVerify, ProfilePage,Updateprofile,FotgotPassword,Resetyoupassword } from "./pages";
 
+import { Home, Product, Products, AboutPage, ContactPage, Cart,Computers, Login, Register, Checkout ,EmailVerify,ProfilePage,Phones,Updateprofile,FotgotPassword,Resetyoupassword, PageNotFound, Hi, AddProduct, Upload,AddContract ,AddInsurance,Insurance, Claim, Categories , Confirm} from "./pages"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Provider store={store}>
       <Routes>
+
+        <Route path='/addProduct' element={<AddProduct />} />
+        <Route path='/addInsurance' element={<AddInsurance />} />
+        <Route path='/claim' element={<Claim/>} />
+        <Route path='/addContract' element={<AddContract/>} />
+        <Route path='/confirm' element={<Confirm/>} />
+        <Route path='/hi' element={<Hi /> }  />
         <Route path="/" element={<Home />} />
-        <Route path="/product" element={<Products />} />
+        <Route path="/upload" element ={<Upload/>}/>
+        <Route path="/product" element={<Products />} />  
+        <Route path="/Insurance" element={<Insurance/>} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/phones" element={<Phones />} />  
+        <Route path="/computers" element={<Computers />} />  
+
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
@@ -36,3 +49,4 @@ root.render(
     </Provider>
   </BrowserRouter>
 ); 
+

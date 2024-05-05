@@ -5,7 +5,9 @@ import { addCart } from "../redux/action";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
+import img from "../img/r6.jpg"
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Products = () => {
   const [data, setData] = useState([]);
@@ -22,10 +24,13 @@ const Products = () => {
   useEffect(() => {
     const getProducts = async () => {
       setLoading(true);
-      const response = await fetch("https://fakestoreapi.com/products/");
+
+
+      const response = await axios.get("http://localhost:7000/product/allproducts");
+      console.log("data ",response.data)
       if (componentMounted) {
-        setData(await response.clone().json());
-        setFilter(await response.json());
+        setData(await response.data);
+        setFilter(await response.data);
         setLoading(false);
       }
 
@@ -33,6 +38,7 @@ const Products = () => {
         componentMounted = false;
       };
     };
+
 
     getProducts();
   }, []);
@@ -69,32 +75,43 @@ const Products = () => {
     const updatedList = data.filter((item) => item.category === cat);
     setFilter(updatedList);
   }
+
   const ShowProducts = () => {
     return (
       <>
         <div className="buttons text-center py-5">
           <button className="btn btn-outline-dark btn-sm m-2" onClick={() => setFilter(data)}>All</button>
-          <button className="btn btn-outline-dark btn-sm m-2" onClick={() => filterProduct("men's clothing")}>Men's Clothing</button>
-          <button className="btn btn-outline-dark btn-sm m-2" onClick={() => filterProduct("women's clothing")}>
-            Women's Clothing
+
+          <button className="btn btn-outline-dark btn-sm m-2" onClick={() => filterProduct("Computers")}>Computers</button>
+          <button className="btn btn-outline-dark btn-sm m-2" onClick={() => filterProduct("Phones")}>
+            Phones
           </button>
-          <button className="btn btn-outline-dark btn-sm m-2" onClick={() => filterProduct("jewelery")}>Jewelery</button>
-          <button className="btn btn-outline-dark btn-sm m-2" onClick={() => filterProduct("electronics")}>Electronics</button>
+          <button className="btn btn-outline-dark btn-sm m-2" onClick={() => filterProduct("Household")}>Household</button>
         </div>
 
         {filter.map((product) => {
+          let imgSrc;
+
+          try {
+            imgSrc = require(`../img/${product.imgID}/image.jpg`) || require(`../img/${product.imgID}/image.jgeg`)|| require(`../img/${product.imgID}/image.png`)||require(`../img/${product.imgID}/image.svg`)
+          } catch (error) {
+            imgSrc = img;
+            console.log("error occurred while fetching image ",error) 
+          }
+
           return (
-            <div id={product.id} key={product.id} className="col-md-4 col-sm-6 col-xs-8 col-12 mb-4">
-              <div className="card text-center h-100" key={product.id}>
+            <div id={product._id} key={product._id} className="col-md-4 col-sm-6 col-xs-8 col-12 mb-4">
+              <div className="card text-center h-100" key={product._id}>
                 <img
                   className="card-img-top p-3"
-                  src={product.image}
+                  src={imgSrc}
                   alt="Card"
                   height={300}
                 />
                 <div className="card-body">
                   <h5 className="card-title">
-                    {product.title.substring(0, 12)}...
+
+                    {product.name.substring(0, 12)}...
                   </h5>
                   <p className="card-text">
                     {product.description.substring(0, 90)}...
@@ -106,7 +123,8 @@ const Products = () => {
                     <li className="list-group-item">Vestibulum at eros</li> */}
                 </ul>
                 <div className="card-body">
-                  <Link to={"/product/" + product.id} className="btn btn-dark m-1">
+
+                  <Link to={"/product/" + product._id} className="btn btn-dark m-1">
                     Buy Now
                   </Link>
                   <button className="btn btn-dark m-1" onClick={() => addProduct(product)}>
@@ -121,6 +139,7 @@ const Products = () => {
       </>
     );
   };
+
   return (
     <>
       <div className="container my-3 py-3">

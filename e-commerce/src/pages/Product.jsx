@@ -5,14 +5,14 @@ import Marquee from "react-fast-marquee";
 import { useDispatch } from "react-redux";
 import { addCart } from "../redux/action";
 
+import img from "../img/r6.jpg"
 import { Footer, Navbar } from "../components";
 
 const Product = () => {
   const { id } = useParams();
   const [product, setProduct] = useState([]);
-  const [similarProducts, setSimilarProducts] = useState([]);
+
   const [loading, setLoading] = useState(false);
-  const [loading2, setLoading2] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -23,18 +23,17 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       setLoading(true);
-      setLoading2(true);
-      const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+
+    
+      const response = await fetch(`http://localhost:7000/product/search/${id}`);
       const data = await response.json();
+      console.log("data", data);
       setProduct(data);
       setLoading(false);
-      const response2 = await fetch(
-        `https://fakestoreapi.com/products/category/${data.category}`
-        
-      );
-      const data2 = await response2.json();
-      setSimilarProducts(data2);
-      setLoading2(false);
+
+
+
+     
     };
     getProduct();
   }, [id]);
@@ -62,6 +61,20 @@ const Product = () => {
     );
   };
 
+  
+  
+    let imgSrc;
+
+    try {
+      imgSrc = require(`../img/${product.imgID}/image.jpg`) || require(`../img/${product.imgID}/image.jgeg`)|| require(`../img/${product.imgID}/image.png`)||require(`../img/${product.imgID}/image.svg`)
+
+    } catch (error) {
+      imgSrc = img;
+      console.log("error occured while fetching image ",error) 
+    }
+
+
+
   const ShowProduct = () => {
     return (
       <>
@@ -69,11 +82,17 @@ const Product = () => {
           <div className="row">
             <div className="col-md-6 col-sm-12 py-3">
               {/* Empty div instead of image */}
-              <div className="img-fluid" style={{ width: '400px', height: '400px', backgroundColor: '#ccc' }}></div>
+
+          
+              <div className="img-fluid" style={{ width: '400px', height: '400px', backgroundColor: '#ccc' }}>
+
+              <img src={imgSrc} id="productImage"  style={{ width: '400px', height: '400px' }} />
+
+              </div>
             </div>
             <div className="col-md-6 col-md-6 py-5">
-              <h4 className="text-uppercase text-muted">reqw</h4>
-              <h1 className="display-5">{product.title}</h1>
+              <h4 className="text-uppercase text-muted">{product.category}</h4>
+              <h1 className="display-5">{product.name}</h1>
               <p className="lead">
                 {product.rating && product.rating.rate}{" "}
                 <i className="fa fa-star"></i>
@@ -96,69 +115,7 @@ const Product = () => {
     );
   };
 
-  const Loading2 = () => {
-    return (
-      <>
-        <div className="my-4 py-4">
-          <div className="d-flex">
-            <div className="mx-4">
-              <Skeleton height={400} width={250} />
-            </div>
-            <div className="mx-4">
-              <Skeleton height={400} width={250} />
-            </div>
-            <div className="mx-4">
-              <Skeleton height={400} width={250} />
-            </div>
-            <div className="mx-4">
-              <Skeleton height={400} width={250} />
-            </div>
-          </div>
-        </div>
-      </>
-    );
-  };
 
-  const ShowSimilarProduct = () => {
-    return (
-      <>
-        <div className="py-4 my-4">
-          <div className="d-flex">
-            {similarProducts.map((item) => {
-              return (
-                <div key={item.id} className="card mx-4 text-center">
-                  {/* Empty div instead of image */}
-                  <div className="card-img-top p-3" style={{ height: '300px', width: '300px', backgroundColor: '#ccc' }}></div>
-                  <div className="card-body">
-                    <h5 className="card-title">
-                      {item.title.substring(0, 15)}...
-                    </h5>
-                  </div>
-                  {/* <ul className="list-group list-group-flush">
-                    <li className="list-group-item lead">${product.price}</li>
-                  </ul> */}
-                  <div className="card-body">
-                    <Link
-                      to={"/product/" + item.id}
-                      className="btn btn-dark m-1"
-                    >
-                      Buy Now
-                    </Link>
-                    <button
-                      className="btn btn-dark m-1"
-                      onClick={() => addProduct(item)}
-                    >
-                      Add to Cart
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </>
-    );
-  };
   return (
     <>
       <Navbar />
@@ -172,7 +129,8 @@ const Product = () => {
               pauseOnClick={true}
               speed={50}
             >
-              {loading2 ? <Loading2 /> : <ShowSimilarProduct />}
+
+           
             </Marquee>
           </div>
         </div>

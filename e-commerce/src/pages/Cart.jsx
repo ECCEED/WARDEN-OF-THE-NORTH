@@ -1,8 +1,17 @@
-import React from "react";
+
+import * as React from 'react';
 import { Footer, Navbar } from "../components";
 import { useSelector, useDispatch } from "react-redux";
 import { addCart, delCart } from "../redux/action";
 import { Link } from "react-router-dom";
+
+import img from "../img/r6.jpg";
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 
 const Cart = () => {
   const state = useSelector((state) => state.handleCart);
@@ -14,7 +23,8 @@ const Cart = () => {
         <div className="row">
           <div className="col-md-12 py-5 bg-light text-center">
             <h4 className="p-3 display-5">Your Cart is Empty</h4>
-            <Link to="/" className="btn  btn-outline-dark mx-4">
+
+            <Link to="/product" className="btn  btn-outline-dark mx-4">
               <i className="fa fa-arrow-left"></i> Continue Shopping
             </Link>
           </div>
@@ -30,17 +40,24 @@ const Cart = () => {
     dispatch(delCart(product));
   };
 
+
+  const [insurance, setInsurance] = React.useState('');
+
+  const handleChange = (event) => {
+    setInsurance(event.target.value);
+  };
+
   const ShowCart = () => {
     let subtotal = 0;
     let shipping = 30.0;
     let totalItems = 0;
-    state.map((item) => {
-      return (subtotal += item.price * item.qty);
+
+
+    state.forEach((item) => {
+      subtotal += item.price * item.qty;
+      totalItems += item.qty;
     });
 
-    state.map((item) => {
-      return (totalItems += item.qty);
-    });
     return (
       <>
         <section className="h-100 gradient-custom">
@@ -53,8 +70,24 @@ const Cart = () => {
                   </div>
                   <div className="card-body">
                     {state.map((item) => {
+
+                      let imgSrc;
+
+                      try {
+                        imgSrc =
+                          require(`../img/${item.imgID}/image.jpg`) ||
+                          require(`../img/${item.imgID}/image.jgeg`) ||
+                          require(`../img/${item.imgID}/image.png`) ||
+                          require(`../img/${item.imgID}/image.svg`);
+                      } catch (error) {
+                        imgSrc = img;
+                        console.log(
+                          "error occurred while fetching image ",
+                          error
+                        );
+                      }
                       return (
-                        <div key={item.id}>
+                        <div key={item._id}>
                           <div className="row d-flex align-items-center">
                             <div className="col-lg-3 col-md-12">
                               <div
@@ -62,9 +95,9 @@ const Cart = () => {
                                 data-mdb-ripple-color="light"
                               >
                                 <img
-                                  src={item.image}
-                                  // className="w-100"
-                                  alt={item.title}
+
+                                  src={imgSrc}
+                                  alt={item.name}
                                   width={100}
                                   height={75}
                                 />
@@ -73,10 +106,9 @@ const Cart = () => {
 
                             <div className="col-lg-5 col-md-6">
                               <p>
-                                <strong>{item.title}</strong>
+
+                                <strong>{item.name}</strong>
                               </p>
-                              {/* <p>Color: blue</p>
-                              <p>Size: M</p> */}
                             </div>
 
                             <div className="col-lg-4 col-md-6">
@@ -129,27 +161,52 @@ const Cart = () => {
                   <div className="card-body">
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                        Products ({totalItems})<span>${Math.round(subtotal)}</span>
+
+                        Products ({totalItems})
+                        <span>${Math.round(subtotal)}</span>
                       </li>
                       <li className="list-group-item d-flex justify-content-between align-items-center px-0">
                         Shipping
                         <span>${shipping}</span>
                       </li>
+
+                      <li className="list-group-item d-flex justify-content-between align-items-center px-0">
+                        <Box sx={{ minWidth: 200 }}>
+                          <FormControl fullWidth>
+                            <InputLabel id="insurance-label">Insurance</InputLabel>
+                            <Select
+                              labelId="insurance-label"
+                              id="insurance"
+                              value={insurance}
+                              onChange={handleChange}
+                              label="Insurance"
+                            >
+                              <MenuItem value={1}>Buy with Insurance</MenuItem>
+                              <MenuItem value={0}>Buy without Insurance</MenuItem>
+                            </Select>
+                          </FormControl>
+                        </Box>
+                      </li>
+
                       <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                         <div>
                           <strong>Total amount</strong>
                         </div>
                         <span>
-                          <strong>${Math.round(subtotal + shipping)}</strong>
+
+                          <strong>
+                            ${Math.round(subtotal + shipping )}
+                          </strong>
                         </span>
                       </li>
                     </ul>
 
                     <Link
-                      to="/checkout"
+
+                      to={insurance === 1 ? "/insurance" : "/checkout"}
                       className="btn btn-dark btn-lg btn-block"
                     >
-                      Go to checkout
+                      {insurance === 1 ? "Go to Insurance" : "Go to Checkout"}
                     </Link>
                   </div>
                 </div>

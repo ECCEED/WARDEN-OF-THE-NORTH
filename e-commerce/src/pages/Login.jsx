@@ -74,6 +74,7 @@ const Login = () => {
                   id="floatingPassword"
                   value={password} 
                   onChange={(e) => setPassword(e.target.value)}
+
                 />
               </div>
               <div className="my-3">
@@ -82,6 +83,7 @@ const Login = () => {
               </div>
               <div className="text-center">
                 <button className="my-2 mx-auto btn btn-dark" type="submit">
+
                   Login
                 </button>
               </div>
@@ -93,4 +95,5 @@ const Login = () => {
     </>
   );
 };
+
 export default Login;

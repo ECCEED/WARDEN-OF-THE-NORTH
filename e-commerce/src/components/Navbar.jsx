@@ -1,8 +1,9 @@
+
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'; 
-
+import logo from '../img/warden.png';
 
 const Navbar = () => {
     const state = useSelector(state => state.handleCart);
@@ -12,12 +13,22 @@ const Navbar = () => {
     const handleLogout = () => {
         localStorage.removeItem('userId'); 
         navigate('/');
+
+    const activeLinkStyle = {
+        borderBottom: '10px solid #4169E1',
+        color: '#4169E1'
+
     };
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light py-3 sticky-top">
             <div className="container">
-                <NavLink className="navbar-brand fw-bold fs-4 px-2" to="/"> React Ecommerce</NavLink>
+
+                <NavLink className="navbar-brand fw-bold fs-4 px-2 d-flex align-items-center" to="/">
+                    <img src={logo} alt="Logo" className="ms-2" style={{ height: '50px', width: '50px', color:'#4169E1' }} />
+                    <span style={{color:'#4169E1'}}>WARDEN</span>
+                </NavLink>
+
                 <button className="navbar-toggler mx-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -25,7 +36,11 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav m-auto my-2 text-center">
                         <li className="nav-item">
+
                             <NavLink className="nav-link" to="/">Home </NavLink>
+                        </li>
+                            <li className="nav-item">
+                            <NavLink className="nav-link" activeStyle={activeLinkStyle} to="/categories">Categories</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/product">Products</NavLink>
@@ -50,11 +65,14 @@ const Navbar = () => {
                             </>
                         )}
                         <NavLink to="/cart" className="btn btn-outline-dark m-2"><i className="fa fa-cart-shopping mr-1"></i>Cart ({state.length})</NavLink>
+
                     </div>
                 </div>
             </div>
         </nav>
-    )
+
+    );
 }
 
-export default Navbar
+export default Navbar;
+
