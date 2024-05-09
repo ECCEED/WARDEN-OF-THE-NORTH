@@ -87,16 +87,17 @@ const ProfilePage = () => {
 
               <MDBCard className="mb-4 d-flex flex-wrap">
                 <MDBCardBody className="d-flex flex-wrap">
-                  
                   {purchaseHistory.map((purchase, index) => (
-                    <BasicCard
-                      key={index}
-                      name={purchase.product.name}
-                      price={purchase.product.price}
-                      description={purchase.product.description}
-                      photo={purchase.product.imgID}
-                      className="mb-3 me-3" 
-                    />
+                    purchase.product && (
+                      <BasicCard
+                        key={index}
+                        name={purchase.product.name}
+                        price={purchase.product.price}
+                        description={purchase.product.description}
+                        photo={purchase.product.imgID}
+                        className="mb-3 me-3" 
+                      />
+                    )
                   ))}
                 </MDBCardBody>
               </MDBCard>

@@ -18,6 +18,8 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import AddProductForm from "../add_product";
+import AllProducts from "../all_products";
 
 const Item = ({ title, to, icon, selected, setSelected, adminId }) => {
   const theme = useTheme();
@@ -74,7 +76,7 @@ const Sidebar = () => {
         <>
           <Item title="Dashboard" to="/dashboard" icon={<HomeOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
           <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }}>Data</Typography>
-          <Item title="Items to repair" to="/invoices" icon={<BuildOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+          <Item title="srysry nsit esmha" to="/invoices" icon={<BuildOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
           <Item title="Messages" to="/invoices" icon={<ForumTwoToneIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
           <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }}>Pages</Typography>
           <Item title="Profile Form" to="/form" icon={<PersonOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
@@ -82,7 +84,26 @@ const Sidebar = () => {
           <Item title="FAQ Page" to="/faq" icon={<HelpOutlineOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
         </>
       );
-    }   else {
+    }  
+    else if(userRole === "Shop_admin"){
+      return (
+        <>
+          <Item title="Dashboard" to="/dashboard" icon={<HomeOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+          <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }}>Data</Typography>
+          <Item title="add product" to="/add_product" icon={<BuildOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+          <Item title="Messages" to="/all_products" icon={<ForumTwoToneIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+          <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }}>Pages</Typography>
+          <Item title="Profile Form" to="/form" icon={<PersonOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+          <Item title="Calendar" to="/calendar" icon={<CalendarTodayOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+          <Item title="FAQ Page" to="/faq" icon={<HelpOutlineOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+        </>
+      );
+    }
+    
+    
+    
+    
+    else {
 
       return (
         <>

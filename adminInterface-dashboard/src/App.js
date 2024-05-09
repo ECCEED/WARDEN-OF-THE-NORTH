@@ -10,6 +10,7 @@ import Bar from "./scenes/bar";
 import Form from "./scenes/form";
 import Line from "./scenes/line";
 import Add_product from "./scenes/add_product";
+import AllProducts from "./scenes/all_products";
 import FAQ from "./scenes/faq";
 import Login from "./scenes/login/login";
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -42,6 +43,7 @@ function App() {
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/form" element={<Form />} />
               <Route path="/add_product" element={<Add_product />} />
+              <Route path="/all_products" element={<AllProducts />} />
               <Route path="/bar" element={<Bar />} />
               <Route path="/line" element={<Line />} />
               <Route path="/faq" element={<FAQ />} />

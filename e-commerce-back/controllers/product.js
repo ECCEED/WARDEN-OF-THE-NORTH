@@ -72,6 +72,46 @@ const upload = multer({
     storage: storage,
     fileFilter: fileFilter
 });
+const updateProduct = async (req, res) => {
+    
+    const { id } = req.params;
+    const { name, price, category, description, imgID } = req.body;
+    try {
+        const existingproduct = await Product.findById(id);
+    
+    const update =  {};
+    
+    if (name) update.name = name;
+    if (price) update.price = price; 
+    if (category) update.category = category;
+    if (description) update.description = description;
+    if (imgID) update.imgID = imgID;
+
+    const updatedProduct = await Product.findByIdAndUpdate(id, update , { new : true  });
+
+    if (!updatedProduct) {
+        return res.status(404).json({ message: "Product not found." });
+    }
+
+    res.status(200).json(updatedProduct);
+} catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Something went wrong", error });
+}
+};
+const deleteProduct = async (req, res) => {
+try {
+  const productId = req.params.id;
+  const deletedProduct = await Product.findByIdAndDelete(productId);
+  if (!deletedProduct) {
+    return res.status(404).json({ error: "Product not found" });
+  }
+  res.json({ message: "Product deleted successfully", deletedProduct });
+} catch (error) {
+  res.status(500).json({ error: "Failed to delete the product", message: error.message });
+}
+};
+
 
 
 module.exports = {
@@ -79,5 +119,7 @@ module.exports = {
     searchProduct,
     getAllProducts,
     uploadImage,
-    upload
+    upload,
+    deleteProduct,
+    updateProduct
 };
