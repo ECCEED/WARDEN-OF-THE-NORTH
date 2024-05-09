@@ -90,6 +90,7 @@ const Insurance = () => {
     setFormValid(isFormValid);
   }, [selectedContract, end_date, insuranceValue, firstName, lastName, email]);
 
+    localStorage.setItem('contract_id',selectedContract._id)
   const handleChange = (event) => {
     setSelectedContract(event.target.value);
   };
@@ -222,6 +223,7 @@ const Insurance = () => {
                             id="theftProtection"
                             checked={theftProtection}
                             onChange={handleTheftProtectionChange}
+
                           />
                           <label
                             className="form-check-label"
@@ -368,8 +370,12 @@ const Insurance = () => {
           </div>
         </div>
       </>
+      
     );
   };
+  localStorage.setItem('theftProtection',theftProtection)
+  localStorage.setItem('end_date',end_date)
+
 
   return (
     <>

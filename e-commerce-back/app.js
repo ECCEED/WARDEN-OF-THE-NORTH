@@ -9,9 +9,16 @@ const Contract = require ("./models/contract");
 const contracts = require ("./routes/contract");
 const Insurance = require ("./models/insurance");
 const insurances= require ("./routes/insurance");
-const products = require("./routes/product");
+
+
 const messages =require("./routes/Messageroutes")
   
+
+const products = require("./routes/product")
+const Purchase = require("./models/purchase");
+const purchases = require("./routes/purchase");
+
+
 
 mongoose.connect(process.env.DATABASE)
  
@@ -52,17 +59,20 @@ db.once("open", async ()=>{
         const productCollectionExists = await Product.exists()
         const contractCollectionExists = await Contract.exists()
         const insuranceCollectionExists = await Insurance.exists()
+        const purchaseCollectionExists = await Purchase.exists()
 
 
-        if( !productCollectionExists  && !contractCollectionExists && !insuranceCollectionExists){
+
+        if( !productCollectionExists  && !contractCollectionExists && !insuranceCollectionExists && !purchaseCollectionExists){
                 await  Product.createIndexes();  
                 await  Contract.createIndexes();  
-                await  Insurance.createIndexes();  
+                await  Insurance.createIndexes();
+                await  Purchase.createIndexes();  
 
 
-                console.log("index created for products collection and contracts and insurances ")
+                console.log("index created for products collection and contracts and insurances and purchases ")
             }else{
-                console.log("products collection already exists and Contracts and insurances ")
+                console.log("products collection already exists and Contracts and insurances and purchases ")
             }
     
     
@@ -76,6 +86,11 @@ db.once("open", async ()=>{
     app.use("/product", products)
     app.use('/contract',contracts)
     app.use('/insurance',insurances)
+
     app.use('/',messages)
+
+    app.use('/purchase',purchases)
+   
+
     
 

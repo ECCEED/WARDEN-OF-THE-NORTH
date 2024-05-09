@@ -1,5 +1,7 @@
+
 import React from "react";
 import { useState, useEffect } from "react";
+
 import { useLocation } from 'react-router-dom';
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
@@ -9,7 +11,7 @@ import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-// import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
+
 import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
 import ForumTwoToneIcon from '@mui/icons-material/ForumTwoTone';
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
@@ -81,6 +83,7 @@ const Sidebar = () => {
         </>
       );
     }   else {
+
       return (
         <>
           <Item title="Dashboard" to="/dashboard" icon={<HomeOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
@@ -95,6 +98,7 @@ const Sidebar = () => {
         </>
       );
     }
+
   };
 
   return (

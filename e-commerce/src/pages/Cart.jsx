@@ -1,9 +1,9 @@
-
-import * as React from 'react';
+import React, { useState } from 'react';
 import { Footer, Navbar } from "../components";
 import { useSelector, useDispatch } from "react-redux";
 import { addCart, delCart } from "../redux/action";
 import { Link } from "react-router-dom";
+import withAuth from "../HOC/withAuth";
 
 import img from "../img/r6.jpg";
 import Box from '@mui/material/Box';
@@ -11,7 +11,6 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-
 
 const Cart = () => {
   const state = useSelector((state) => state.handleCart);
@@ -33,15 +32,10 @@ const Cart = () => {
     );
   };
 
-  const addItem = (product) => {
-    dispatch(addCart(product));
-  };
-  const removeItem = (product) => {
-    dispatch(delCart(product));
-  };
 
+ 
 
-  const [insurance, setInsurance] = React.useState('');
+  const [insurance, setInsurance] = useState('');
 
   const handleChange = (event) => {
     setInsurance(event.target.value);
@@ -51,7 +45,6 @@ const Cart = () => {
     let subtotal = 0;
     let shipping = 30.0;
     let totalItems = 0;
-
 
     state.forEach((item) => {
       subtotal += item.price * item.qty;
@@ -95,7 +88,6 @@ const Cart = () => {
                                 data-mdb-ripple-color="light"
                               >
                                 <img
-
                                   src={imgSrc}
                                   alt={item.name}
                                   width={100}
@@ -106,7 +98,6 @@ const Cart = () => {
 
                             <div className="col-lg-5 col-md-6">
                               <p>
-
                                 <strong>{item.name}</strong>
                               </p>
                             </div>
@@ -116,25 +107,10 @@ const Cart = () => {
                                 className="d-flex mb-4"
                                 style={{ maxWidth: "300px" }}
                               >
-                                <button
-                                  className="btn px-3"
-                                  onClick={() => {
-                                    removeItem(item);
-                                  }}
-                                >
-                                  <i className="fas fa-minus"></i>
-                                </button>
+                                
 
-                                <p className="mx-5">{item.qty}</p>
 
-                                <button
-                                  className="btn px-3"
-                                  onClick={() => {
-                                    addItem(item);
-                                  }}
-                                >
-                                  <i className="fas fa-plus"></i>
-                                </button>
+                                
                               </div>
 
                               <p className="text-start text-md-center">
@@ -161,7 +137,6 @@ const Cart = () => {
                   <div className="card-body">
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-
                         Products ({totalItems})
                         <span>${Math.round(subtotal)}</span>
                       </li>
@@ -193,16 +168,14 @@ const Cart = () => {
                           <strong>Total amount</strong>
                         </div>
                         <span>
-
                           <strong>
-                            ${Math.round(subtotal + shipping )}
+                            ${Math.round(subtotal + shipping)}
                           </strong>
                         </span>
                       </li>
                     </ul>
 
                     <Link
-
                       to={insurance === 1 ? "/insurance" : "/checkout"}
                       className="btn btn-dark btn-lg btn-block"
                     >
@@ -231,4 +204,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default withAuth(Cart);
