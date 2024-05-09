@@ -9,8 +9,9 @@ const Contract = require ("./models/contract");
 const contracts = require ("./routes/contract");
 const Insurance = require ("./models/insurance");
 const insurances= require ("./routes/insurance");
-const products = require("./routes/product")
-
+const products = require("./routes/product");
+const messages =require("./routes/Messageroutes")
+  
 
 mongoose.connect(process.env.DATABASE)
  
@@ -75,5 +76,6 @@ db.once("open", async ()=>{
     app.use("/product", products)
     app.use('/contract',contracts)
     app.use('/insurance',insurances)
+    app.use('/',messages)
     
 

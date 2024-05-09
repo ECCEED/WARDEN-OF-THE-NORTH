@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField } from "@mui/material";
-// import { Formik } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import BasicSelect from '../../components/select_role';
@@ -8,35 +7,35 @@ import axios from 'axios';
 
 const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  const [name, setName] = useState();
-  const [Lastname, setLastName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [contact, setContact] = useState();
-  const [repeatPassword, setRepeatPassword] = useState();
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [contact, setContact] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
   const [role, setRole] = useState('');
 
   const handleFormSubmit = (e) => {
-    const mappedRole = mapRoleToLabel(role);
     e.preventDefault();
-    axios.post('http://localhost:7000/form', { name,Lastname, email,contact, password, repeatPassword,role: mappedRole })
-    .then((result) => {
-      console.log(result.data);
-    })
-    .catch((err) => {
-      if (err.response && err.response.data && err.response.data.error) {
-        alert(err.response.data.error);
-      } else {
-        console.error(err);
-        alert('An error occurred. Please try again later.');
-      }
-    });
-
+    const mappedRole = mapRoleToLabel(role);
+    axios.post('http://localhost:7000/form', { name, lastName, email, contact, password, repeatPassword, role: mappedRole })
+      .then((result) => {
+        console.log(result.data);
+      })
+      .catch((err) => {
+        if (err.response && err.response.data && err.response.data.error) {
+          alert(err.response.data.error);
+        } else {
+          console.error(err);
+          alert('An error occurred. Please try again later.');
+        }
+      });
   };
+
   const handleSelectChange = (event) => {
-    
     setRole(event.target.value);
   };
+
   const mapRoleToLabel = (role) => {
     switch (role) {
       case 1:
@@ -52,7 +51,7 @@ const Form = () => {
 
   return (
     <Box m="20px">
-      <Header title="CREATE AGENT" subtitle="Create a New Agent " />
+      <Header title="CREATE AGENT" subtitle="Create a New Agent" />
 
       <form onSubmit={handleFormSubmit}>
         <Box
@@ -68,6 +67,7 @@ const Form = () => {
             variant="filled"
             type="text"
             label="First Name"
+            value={name}
             onChange={(e) => setName(e.target.value)}
             name="firstName"
             sx={{ gridColumn: "span 2" }}
@@ -77,6 +77,7 @@ const Form = () => {
             variant="filled"
             type="text"
             label="Last Name"
+            value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             name="lastName"
             sx={{ gridColumn: "span 2" }}
@@ -86,6 +87,7 @@ const Form = () => {
             variant="filled"
             type="text"
             label="Email"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
             name="email"
             sx={{ gridColumn: "span 4" }}
@@ -95,6 +97,7 @@ const Form = () => {
             variant="filled"
             type="text"
             label="Contact Number"
+            value={contact}
             onChange={(e) => setContact(e.target.value)}
             name="contact"
             sx={{ gridColumn: "span 4" }}
@@ -103,7 +106,8 @@ const Form = () => {
             fullWidth
             variant="filled"
             type="password"
-            label="password"
+            label="Password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
             name="password"
             sx={{ gridColumn: "span 4" }}
@@ -112,7 +116,8 @@ const Form = () => {
             fullWidth
             variant="filled"
             type="password"
-            label="repeat password"
+            label="Repeat Password"
+            value={repeatPassword}
             onChange={(e) => setRepeatPassword(e.target.value)}
             name="address2"
             sx={{ gridColumn: "span 4" }}
@@ -125,8 +130,6 @@ const Form = () => {
           </Button>
         </Box>
       </form>
-
-      {/* </Formik> */}
     </Box>
   );
 };

@@ -14,16 +14,15 @@ const getUser = async (req , res) => {
 const updateUser = async (req, res) => {
   try {
     const userId = req.params.id;
-    const update = { newName, newEmail, newPassword } = req.body;
-
+    const { newName, newEmail, newPassword } = req.body; 
+    const update = {};
     
     if (newName) update.name = newName;
     if (newEmail) update.email = newEmail;
     if (newPassword) { 
-      update.password=await bcrypt.hash(newPassword, 10); 
-
-    }
-    
+      const hashedPassword=await bcrypt.hash(newPassword, 10); 
+      update.password = hashedPassword;
+    } 
     const updatedUser = await RegisterModel.findByIdAndUpdate(userId, update, { new: true });
 
     if (!updatedUser) {
@@ -31,6 +30,7 @@ const updateUser = async (req, res) => {
     }
 
     res.send(updatedUser);
+
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Something went wrong" });

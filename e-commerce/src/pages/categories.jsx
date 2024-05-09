@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Footer, Navbar } from "../components";
-import comping from "../img/computers.jpg"
 
 const Categories = () => {
   return (

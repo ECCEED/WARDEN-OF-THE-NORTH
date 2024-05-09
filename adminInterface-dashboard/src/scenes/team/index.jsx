@@ -6,6 +6,7 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import Header from "../../components/Header";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const Team = () => {
   const [adminData, setAdminData] = useState([]);
@@ -16,23 +17,22 @@ const Team = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:7000/team");
-      const data = await response.json();
-     
+      const response = await axios.get("http://localhost:7000/team");
+      const data = response.data;
       const modifiedData = data.map(row => ({ ...row, id: row._id }));
       setAdminData(modifiedData);
     } catch (error) {
       console.error('Error fetching admin data:', error);
     }
   };
+
+
   const handleDelete = async (adminId) => {
     try {
-      const response = await fetch(`http://localhost:7000/team/${adminId}`, {
-        method: 'DELETE'
-      });
+      const response = await axios.delete(`http://localhost:7000/team/${adminId}`);
       console.log("Deleted: ", response);
-      if (response.ok) {
-        await fetchData(); 
+      if (response.status === 200) {
+        await fetchData();
         Swal.fire({
           title: "Deleted!",
           text: "Admin has been deleted.",
@@ -50,7 +50,54 @@ const Team = () => {
       });
     }
   };
-
+  const handleEdit = async (adminId) => {
+    const { value: formValues } = await Swal.fire({
+      title: "Edit Admin",
+      html: `
+        <input id="swal-name" class="swal2-input" placeholder="Name">
+        <input id="swal-last-name" class="swal2-input" placeholder="Last Name">
+        <input id="swal-email" class="swal2-input" placeholder="Email">
+        <input id="swal-contact" class="swal2-input" placeholder="Contact">
+      `,
+      focusConfirm: false,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      cancelButtonText: 'Cancel',
+      preConfirm: () => {
+        return {
+          newName: document.getElementById("swal-name").value,
+          newLastName: document.getElementById("swal-last-name").value,
+          newEmail: document.getElementById("swal-email").value,
+          newContact: document.getElementById("swal-contact").value
+        };
+      }
+    });
+  
+    if (formValues) {
+      try {
+        const response = await axios.put(`http://localhost:7000/team/${adminId}`, formValues);
+        console.log("Updated: ", response);
+        if (response.status === 200) {
+          await fetchData(); 
+          Swal.fire({
+            title: "Updated!",
+            text: "Admin has been updated.",
+            icon: "success"
+          });
+        } else {
+          throw new Error('Failed to update admin');
+        }
+      } catch (error) {
+        console.error('Error updating admin:', error);
+        Swal.fire({
+          title: "Error!",
+          text: "Failed to update the admin.",
+          icon: "error"
+        });
+      }
+    }
+  };
+  
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
@@ -108,7 +155,7 @@ const Team = () => {
           <Button variant="contained" color="error" onClick={() => handleDelete(row.id)}>
             Delete
           </Button>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={() => handleEdit(row.id)}>
             Edit
           </Button>
         </>
