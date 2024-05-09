@@ -9,27 +9,26 @@ const [description, setDescription] = useState("")
 const [category, setCategory] = useState("")
 const [imgID,setImgID] =useState("")
 
-    const addProduct = async () => {
-        try{
+const addProduct = async () => {
+    try {
+        const data = {
+            price: price,
+            name: name,
+            description: description,
+            category: category,
+            imgID: imgID
+        };
 
-           
-            const data = { "price" : price , "name" : name , "description" : description , "category" : category, "imgID": imgID  }
-            console.log("data is ",data)
+        console.log("data is ", data);
 
-            const response = await axios.post("http://localhost:7000/product/createProduct", {data});
+        const response = await axios.post("http://localhost:7000/product/createProduct", data);
 
-
-            console.log("response is ",response.data)
-
-            
-
-        }catch(err){
-
-            console.log("err adding new product ",err)
-        }
-
-
+        console.log("response is ", response.data);
+    } catch (err) {
+        console.log("err adding new product ", err);
     }
+};
+
 
 
 

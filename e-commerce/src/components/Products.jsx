@@ -90,21 +90,15 @@ const Products = () => {
         </div>
 
         {filter.map((product) => {
-          let imgSrc;
 
-          try {
-            imgSrc = require(`../img/${product.imgID}/image.jpg`) || require(`../img/${product.imgID}/image.jgeg`)|| require(`../img/${product.imgID}/image.png`)||require(`../img/${product.imgID}/image.svg`)
-          } catch (error) {
-            imgSrc = img;
-            console.log("error occurred while fetching image ",error) 
-          }
+         
 
           return (
             <div id={product._id} key={product._id} className="col-md-4 col-sm-6 col-xs-8 col-12 mb-4">
               <div className="card text-center h-100" key={product._id}>
                 <img
                   className="card-img-top p-3"
-                  src={imgSrc}
+                  src={product.imgID}
                   alt="Card"
                   height={300}
                 />
@@ -127,9 +121,7 @@ const Products = () => {
                   <Link to={"/product/" + product._id} className="btn btn-dark m-1">
                     Buy Now
                   </Link>
-                  <button className="btn btn-dark m-1" onClick={() => addProduct(product)}>
-                    Add to Cart
-                  </button>
+                 
                 </div>
               </div>
             </div>

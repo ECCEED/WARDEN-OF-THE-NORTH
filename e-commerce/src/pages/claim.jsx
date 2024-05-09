@@ -7,6 +7,10 @@ const Claim = () => {
   const handleStolenChange = () => {
     setStolen(!stolen);
   };
+  
+  
+
+  
 
   return (
     <>

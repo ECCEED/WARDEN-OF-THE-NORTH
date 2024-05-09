@@ -6,7 +6,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; 
 
 const Login = () => {
-
   const location = useLocation();
   const { alert } = location.state || {};
   const [showAlert, setShowAlert] = useState(false);
@@ -23,6 +22,13 @@ const Login = () => {
         return () => clearTimeout(timer);
     }
   }, [alert]);
+
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      navigate('/', { state: { alert: { message: 'You are already logged in.', severity: 'info' } } });
+    }
+  }, [navigate]);
 
   const handleLoginSuccess = (userId) => {
     localStorage.setItem('userId', userId); 
@@ -74,7 +80,6 @@ const Login = () => {
                   id="floatingPassword"
                   value={password} 
                   onChange={(e) => setPassword(e.target.value)}
-
                 />
               </div>
               <div className="my-3">
@@ -83,7 +88,6 @@ const Login = () => {
               </div>
               <div className="text-center">
                 <button className="my-2 mx-auto btn btn-dark" type="submit">
-
                   Login
                 </button>
               </div>

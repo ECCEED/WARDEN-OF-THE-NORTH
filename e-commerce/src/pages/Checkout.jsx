@@ -1,48 +1,71 @@
-
 import React, { useEffect, useState } from "react";
 import { Footer, Navbar } from "../components";
 import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Checkout = () => {
-  const state = useSelector((state) => state.handleCart);
+  const cartItems = useSelector((state) => state.handleCart);
   const location = useLocation();
+  const Navigate = useNavigate();
+
   const [insuranceValue, setInsuranceValue] = useState(0);
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const iv = searchParams.get("iv");
-    if (iv) {
-      setInsuranceValue(parseFloat(iv));
-    }
-  }, [location]);
-
-  const EmptyCart = () => {
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12 py-5 bg-light text-center">
-            <h4 className="p-3 display-5">No item in Cart</h4>
-            <Link to="/" className="btn btn-outline-dark mx-4">
-              <i className="fa fa-arrow-left"></i> Continue Shopping
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
+  const purchaseData = {
+    product: localStorage.getItem("product_id"),
+    contract: localStorage.getItem("contract_id"),
+    client: localStorage.getItem("userId"),
+    vol: JSON.parse(localStorage.getItem("theftProtection")),
+    end_date: localStorage.getItem("end_date"),
   };
+  console.log(purchaseData)
+
+  // useEffect(() => {
+  //   const searchParams = new URLSearchParams(location.search);
+  //   const iv = searchParams.get("iv");
+  //   if (iv) {
+  //     setInsuranceValue(parseFloat(iv));
+  //   }
+  // }, [location]);
+
+  // const EmptyCart = () => {
+  //   return (
+  //     <div className="container">
+  //       <div className="row">
+  //         <div className="col-md-12 py-5 bg-light text-center">
+  //           <h4 className="p-3 display-5">No item in Cart</h4>
+  //           <Link to="/" className="btn btn-outline-dark mx-4">
+  //             <i className="fa fa-arrow-left"></i> Continue Shopping
+  //           </Link>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // };
 
   const ShowCheckout = () => {
     let subtotal = 0;
     let shipping = 30.0;
     let totalItems = 0;
-    state.map((item) => {
-      return (subtotal += item.price * item.qty);
+    cartItems.forEach((item) => {
+      subtotal += item.price * item.qty;
+      totalItems += item.qty;
     });
 
-    state.map((item) => {
-      return (totalItems += item.qty);
-    });
+    const PurchaseButton = async (e) => {
+      e.preventDefault(); 
+      try {
+        const response = await axios.post(
+          "http://localhost:7000/purchase/createPurchase",
+          purchaseData
+        );
+        console.log("response is ", response.data);
+        Navigate("/confirm");
+      } catch (error) {
+        console.log("Error adding new purchase: ", error);
+      }
+    };
+    
+
     return (
       <>
         <div className="container py-5">
@@ -71,7 +94,6 @@ const Checkout = () => {
                         <strong>Total amount</strong>
                       </div>
                       <span>
-
                         <strong>${Math.round(subtotal + shipping + insuranceValue)}</strong>
                       </span>
                     </li>
@@ -85,7 +107,6 @@ const Checkout = () => {
                   <h4 className="mb-0">Billing address</h4>
                 </div>
                 <div className="card-body">
-
                   <form className="needs-validation" noValidate>
                     <div className="row g-3">
                       <div className="col-sm-6 my-1">
@@ -105,7 +126,6 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-sm-6 my-1">
-
                         <label htmlFor="lastName" className="form-label">
                           Last name
                         </label>
@@ -122,7 +142,6 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-12 my-1">
-
                         <label htmlFor="email" className="form-label">
                           Email
                         </label>
@@ -134,13 +153,11 @@ const Checkout = () => {
                           required
                         />
                         <div className="invalid-feedback">
-                          Please enter a valid email address for shipping
-                          updates.
+                          Please enter a valid email address for shipping updates.
                         </div>
                       </div>
 
                       <div className="col-12 my-1">
-
                         <label htmlFor="address" className="form-label">
                           Address
                         </label>
@@ -157,7 +174,6 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-12">
-
                         <label htmlFor="address2" className="form-label">
                           Address 2{" "}
                           <span className="text-muted">(Optional)</span>
@@ -171,7 +187,6 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-md-5 my-1">
-
                         <label htmlFor="country" className="form-label">
                           Country
                         </label>
@@ -186,7 +201,6 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-md-4 my-1">
-
                         <label htmlFor="state" className="form-label">
                           State
                         </label>
@@ -201,7 +215,6 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-md-3 my-1">
-
                         <label htmlFor="zip" className="form-label">
                           Zip
                         </label>
@@ -217,14 +230,10 @@ const Checkout = () => {
                         </div>
                       </div>
                     </div>
-
                     <hr className="my-4" />
-
                     <h4 className="mb-3">Payment</h4>
-
                     <div className="row gy-3">
                       <div className="col-md-6">
-
                         <label htmlFor="cc-name" className="form-label">
                           Name on card
                         </label>
@@ -244,7 +253,6 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-md-6">
-
                         <label htmlFor="cc-number" className="form-label">
                           Credit card number
                         </label>
@@ -261,7 +269,6 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-md-3">
-
                         <label htmlFor="cc-expiration" className="form-label">
                           Expiration
                         </label>
@@ -278,7 +285,6 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-md-3">
-
                         <label htmlFor="cc-cvv" className="form-label">
                           CVV
                         </label>
@@ -294,15 +300,14 @@ const Checkout = () => {
                         </div>
                       </div>
                     </div>
-
                     <hr className="my-4" />
-
                     <button
-                      className="w-100 btn btn-primary "
-                      type="submit" disabled
-                    >
-                      Continue to checkout
-                    </button>
+                    className="w-100 btn btn-primary"
+                    onClick={(e) => PurchaseButton(e)} // Pass event
+                  >
+                    Confirm the Purchase
+                  </button>
+
                   </form>
                 </div>
               </div>
@@ -312,13 +317,14 @@ const Checkout = () => {
       </>
     );
   };
+
   return (
     <>
       <Navbar />
       <div className="container my-3 py-3">
         <h1 className="text-center">Checkout</h1>
         <hr />
-        {state.length ? <ShowCheckout /> : <EmptyCart />}
+        { <ShowCheckout /> }
       </div>
       <Footer />
     </>

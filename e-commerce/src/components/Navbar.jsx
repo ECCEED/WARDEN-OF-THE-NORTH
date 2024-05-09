@@ -13,7 +13,7 @@ const Navbar = () => {
     const handleLogout = () => {
         localStorage.removeItem('userId'); 
         navigate('/');
-
+    };
     const activeLinkStyle = {
         borderBottom: '10px solid #4169E1',
         color: '#4169E1'
@@ -40,7 +40,7 @@ const Navbar = () => {
                             <NavLink className="nav-link" to="/">Home </NavLink>
                         </li>
                             <li className="nav-item">
-                            <NavLink className="nav-link" activeStyle={activeLinkStyle} to="/categories">Categories</NavLink>
+                            <NavLink className="nav-link" activestyle={activeLinkStyle} to="/categories">Categories</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/product">Products</NavLink>
@@ -64,8 +64,7 @@ const Navbar = () => {
                                 <NavLink to="/register" className="btn btn-outline-dark m-2"><i className="fa fa-user-plus mr-1"></i>Register</NavLink>
                             </>
                         )}
-                        <NavLink to="/cart" className="btn btn-outline-dark m-2"><i className="fa fa-cart-shopping mr-1"></i>Cart ({state.length})</NavLink>
-
+*
                     </div>
                 </div>
             </div>

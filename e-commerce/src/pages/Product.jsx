@@ -7,14 +7,33 @@ import { addCart } from "../redux/action";
 
 import img from "../img/r6.jpg"
 import { Footer, Navbar } from "../components";
+import { useNavigate } from "react-router-dom";
 
 const Product = () => {
   const { id } = useParams();
   const [product, setProduct] = useState([]);
+  const navigate = useNavigate();
+
+  const redirectToCheckout = () => {
+    navigate('/Checkout');
+  };
+  const redirectToInsurance = () => {
+    navigate('/insurance');
+  };
+  const handleadd =()=>{
+    addProduct(product);
+    redirectToCheckout();
+  };
+  const handleins =()=>{
+    addProduct(product);
+    redirectToInsurance();
+  };
+
 
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
+ 
 
   const addProduct = (product) => {
     dispatch(addCart(product));
@@ -24,13 +43,13 @@ const Product = () => {
     const getProduct = async () => {
       setLoading(true);
 
-    
+
       const response = await fetch(`http://localhost:7000/product/search/${id}`);
       const data = await response.json();
       console.log("data", data);
       setProduct(data);
       setLoading(false);
-
+        localStorage.setItem('product_id',id);
 
 
      
@@ -66,8 +85,8 @@ const Product = () => {
     let imgSrc;
 
     try {
-      imgSrc = require(`../img/${product.imgID}/image.jpg`) || require(`../img/${product.imgID}/image.jgeg`)|| require(`../img/${product.imgID}/image.png`)||require(`../img/${product.imgID}/image.svg`)
-
+      imgSrc = 
+      product.imgID;
     } catch (error) {
       imgSrc = img;
       console.log("error occured while fetching image ",error) 
@@ -81,12 +100,10 @@ const Product = () => {
         <div className="container my-5 py-2">
           <div className="row">
             <div className="col-md-6 col-sm-12 py-3">
-              {/* Empty div instead of image */}
-
           
               <div className="img-fluid" style={{ width: '400px', height: '400px', backgroundColor: '#ccc' }}>
 
-              <img src={imgSrc} id="productImage"  style={{ width: '400px', height: '400px' }} />
+              <img src={product.imgID} id="productImage"  style={{ width: '400px', height: '400px' }} />
 
               </div>
             </div>
@@ -99,15 +116,23 @@ const Product = () => {
               </p>
               <h3 className="display-6  my-4">${product.price}</h3>
               <p className="lead">{product.description}</p>
+              <div>
               <button
                 className="btn btn-outline-dark"
-                onClick={() => addProduct(product)}
+                onClick={handleadd}
+                style={{ display: 'inline-block', marginRight: '10px' }}
               >
-                Add to Cart
+                buy without insurance
               </button>
-              <Link to="/cart" className="btn btn-dark mx-3">
-                Go to Cart
-              </Link>
+
+              <button
+                className="btn btn-outline-dark"
+                onClick={handleins}
+                style={{ display: 'inline-block' }}
+              >
+                But with insurance
+              </button>
+            </div>
             </div>
           </div>
         </div>
