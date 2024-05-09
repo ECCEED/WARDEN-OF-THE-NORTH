@@ -72,7 +72,7 @@ const Sidebar = () => {
     if (userRole === "Repair_admin") {
       return (
         <>
-          <Item title="Dashboard" to="/" icon={<HomeOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+          <Item title="Dashboard" to="/dashboard" icon={<HomeOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
           <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }}>Data</Typography>
           <Item title="Items to repair" to="/invoices" icon={<BuildOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
           <Item title="Messages" to="/invoices" icon={<ForumTwoToneIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />

@@ -6,12 +6,12 @@ import {
   MDBContainer,
   MDBRow,
   MDBCard,
-  MDBCardText,
   MDBCardBody,
+  MDBCardText,
   MDBCardImage,
   MDBBtn,
 } from 'mdb-react-ui-kit';
-import { Footer, Navbar } from '../components';
+import { Footer, Navbar, BasicCard } from '../components';
 
 const ProfilePage = () => {
   const location = useLocation();
@@ -19,15 +19,26 @@ const ProfilePage = () => {
   const userId = searchParams.get('id');
 
   const [userData, setUserData] = useState(null);
+  const [purchaseHistory, setPurchaseHistory] = useState([]);
 
   useEffect(() => {
     if (userId) {
+      // Fetch user data
       axios.get(`http://localhost:7000/profile/${userId}`)
         .then(response => {
           setUserData(response.data);
         })
         .catch(error => {
           console.error('Error fetching user data:', error);
+        });
+
+      axios.get(`http://localhost:7000/purchase/history/${userId}`)
+        .then(response => {
+          setPurchaseHistory(response.data);
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error('Error fetching purchase history:', error);
         });
     }
   }, [userId]);
@@ -46,44 +57,47 @@ const ProfilePage = () => {
                     alt="avatar"
                     className="rounded-circle"
                     style={{ width: '150px' }}
-                    fluid />
-                  <p ></p>
-                  <p ></p>
+                    fluid
+                  />
                   <div className="d-flex justify-content-center mb-2">
                     <Link to={`/Updateprofile?id=${userId}`}>
-                      <MDBBtn outline className="ms-1">Update profile</MDBBtn>
+                      <MDBBtn outline className="ms-1">
+                        Update profile
+                      </MDBBtn>
                     </Link>
                   </div>
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>
+
             <MDBCol lg="8">
               <MDBCard className="mb-4">
                 <MDBCardBody>
-                  <MDBRow>
-                    <MDBCol sm="3">
-                      <MDBCardText>Full Name</MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="9">
-                      <MDBCardText className="text-muted">{userData ? userData.name : 'Loading...'}</MDBCardText>
-                    </MDBCol>
-                  </MDBRow>
+                  <MDBCardText>Full Name</MDBCardText>
+                  <MDBCardText className="text-muted">
+                    {userData ? userData.name : 'Loading...'}
+                  </MDBCardText>
                   <hr />
-                  <MDBRow>
-                    <MDBCol sm="3">
-                      <MDBCardText>Email</MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="9">
-                      <MDBCardText className="text-muted">{userData ? userData.email : 'Loading...'}</MDBCardText>
-                    </MDBCol>
-                  </MDBRow>
+                  <MDBCardText>Email</MDBCardText>
+                  <MDBCardText className="text-muted">
+                    {userData ? userData.email : 'Loading...'}
+                  </MDBCardText>
                 </MDBCardBody>
               </MDBCard>
 
-              <MDBCard className="mb-4">
-                <MDBCardBody>
-                  <MDBCardText className="mb-3">History</MDBCardText>
-
+              <MDBCard className="mb-4 d-flex flex-wrap">
+                <MDBCardBody className="d-flex flex-wrap">
+                  
+                  {purchaseHistory.map((purchase, index) => (
+                    <BasicCard
+                      key={index}
+                      name={purchase.product.name}
+                      price={purchase.product.price}
+                      description={purchase.product.description}
+                      photo={purchase.product.imgID}
+                      className="mb-3 me-3" 
+                    />
+                  ))}
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>

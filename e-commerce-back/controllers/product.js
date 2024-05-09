@@ -73,6 +73,7 @@ const upload = multer({
     fileFilter: fileFilter
 });
 
+
 module.exports = {
     createProduct,
     searchProduct,

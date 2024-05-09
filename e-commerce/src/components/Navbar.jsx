@@ -11,10 +11,7 @@ const Navbar = () => {
     
 
 
-    const handleLogout = () => {
-        localStorage.removeItem('userId'); 
-        navigate('/');
-    };
+
 
     const activeLinkStyle = {
         borderBottom: '10px solid #4169E1',
