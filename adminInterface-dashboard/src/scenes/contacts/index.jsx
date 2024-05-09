@@ -28,37 +28,77 @@ const Contacts = () => {
   }, []);
 
   const handleDelete = async (userId) => {
-    try {
-      const response = await fetch(`http://localhost:7000/contacts/${userId}`, {
-        method: 'DELETE'
+  try {
+    const response = await axios.delete(`http://localhost:7000/contacts/${userId}`);
+    console.log("Deleted: ", response);
+    if (response.status === 200) {
+      await fetchData();
+      Swal.fire({
+        title: "Deleted!",
+        text: "user has been deleted.",
+        icon: "success"
       });
-      console.log("Deleted: ", response);
-      if (response.ok) {
-        await fetchData();
+    } else {
+      throw new Error('Failed to delete user');
+    }
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    Swal.fire({
+      title: "Error!",
+      text: "Failed to delete the user.",
+      icon: "error"
+    });
+  }
+};
+
+const handleEdit = async (UserId) => {
+  const { value: formValues } = await Swal.fire({
+    title: "Edit User",
+    html: `
+      <input id="swal-name" class="swal2-input" placeholder="Name">
+      <input id="swal-email" class="swal2-input" placeholder="Email">
+    `,
+    focusConfirm: false,
+    showCancelButton: true,
+    confirmButtonText: 'Save',
+    cancelButtonText: 'Cancel',
+    preConfirm: () => {
+      return {
+        newName: document.getElementById("swal-name").value,
+        newEmail: document.getElementById("swal-email").value,
+      };
+    }
+  });
+
+  if (formValues) {
+    try {
+      const response = await axios.put(`http://localhost:7000/contacts/${UserId}`, formValues);
+      console.log("Updated: ", response);
+      if (response.status === 200) {
+        await fetchData(); 
         Swal.fire({
-          title: "Deleted!",
-          text: "Admin has been deleted.",
+          title: "Updated!",
+          text: "user has been updated.",
           icon: "success"
         });
       } else {
-        throw new Error('Failed to delete admin');
+        throw new Error('Failed to update user');
       }
     } catch (error) {
-      console.error('Error deleting admin:', error);
+      console.error('Error updating user:', error);
       Swal.fire({
         title: "Error!",
-        text: "Failed to delete the admin.",
+        text: "Failed to update the user.",
         icon: "error"
       });
     }
-  };
-
+  }
+};
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "registrarId", headerName: "Registrar ID" },
     {
       field: "name",
       headerName: "Name",
@@ -79,7 +119,7 @@ const Contacts = () => {
           <Button variant="contained" color="error" onClick={() => handleDelete(row.id)}>
             Delete
           </Button>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={()=>handleEdit(row.id)}>
             Edit
           </Button>
         </>

@@ -12,4 +12,7 @@ export const delCart = (product) =>{
         type:"DELITEM",
         payload:product
     }
+
+
 }
+

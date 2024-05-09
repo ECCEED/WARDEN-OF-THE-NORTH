@@ -4,9 +4,11 @@ import { Navbar, Main, Footer } from "../components";
 function Home() {
   return (
     <>
-      <Navbar/>
-      <Main />
+      <Navbar />
 
+      <Main />
+      
+      
       <Footer />
     </>
   )

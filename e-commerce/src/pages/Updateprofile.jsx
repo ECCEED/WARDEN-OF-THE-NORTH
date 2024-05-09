@@ -14,14 +14,12 @@ import {
 } from 'mdb-react-ui-kit';
 import { Footer, Navbar } from '../components';
 
-
 const Updateprofile = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const userId = searchParams.get('id');
 
   const [values, setValues] = useState({
-    id: userId,
     name: '',
     email: '',
     password: '',
@@ -42,25 +40,24 @@ const Updateprofile = () => {
     }
   }, [userId]);
 
-  const handleUpdateProfile = (e) => {
+  const handleUpdateProfile = async (e) => {
     e.preventDefault();
 
-    let updatedValues = { ...values }; 
+    let updatedValues = { ...values };
     if (newPassword !== '') {
-      updatedValues.password = newPassword; 
+      updatedValues.password = newPassword;
     }
     if (repeatNewPassword !== '') {
       updatedValues.repeatPassword = repeatNewPassword;
     }
 
-    axios.put(`http://localhost:7000/Updateprofile/${userId}`, updatedValues)
-      .then(response => {
-        alert('Profile updated successfully');
-      })
-      .catch(error => {
-        console.error('Error updating profile:', error);
-        alert('Failed to update profile. Please try again later.');
-      });
+    try {
+      await axios.put(`http://localhost:7000/Updateprofile/${userId}`, updatedValues);
+      alert('Profile updated successfully');
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      alert('Failed to update profile. Please try again later.');
+    }
   };
 
   const handleNameChange = (e) => {
@@ -146,7 +143,7 @@ const Updateprofile = () => {
                       </MDBCol>
                     </MDBRow>
                   </MDBCardBody>
-                  <MDBBtn onClick={handleUpdateProfile}>Update Profile</MDBBtn>
+                  <MDBBtn type="submit">Update Profile</MDBBtn>
                 </form> 
               </MDBCard>
             </MDBCol>

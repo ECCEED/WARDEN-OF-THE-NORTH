@@ -1,50 +1,136 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, useTheme, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataInvoices } from "../../data/mockData";
 import Header from "../../components/Header";
+import axios from "axios";
+import { useLocation } from 'react-router-dom';
+import Swal from "sweetalert2";
 
 const Invoices = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const adminId = searchParams.get('id');
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [messageData, setmessageData] = useState([]);
+
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:7000/invoices/${adminId}`);
+      const data = response.data;
+      const modifiedData = data.map(row => ({
+        id: row._id,
+        name: row.sender.name,
+        email: row.sender.email,
+        date: new Date(row.timestamp).toLocaleString(),
+        message: row.message
+      }));
+      setmessageData(modifiedData);
+    } catch (error) {
+      console.error('Error fetching admin data:', error);
+    }
+  };
+
+  const handleDelete = async (messageId) => {
+    try {
+      const response = await axios.delete(`http://localhost:7000/invoices/${messageId}`);
+      console.log("Deleted: ", response);
+      if (response.status === 200) {
+        await fetchData();
+        Swal.fire({
+          title: "Deleted!",
+          text: "message has been deleted.",
+          icon: "success"
+        });
+      } else {
+        throw new Error('Failed to delete message');
+      }
+    } catch (error) {
+      console.error('Error deleting message:', error);
+      Swal.fire({
+        title: "Error!",
+        text: "Failed to delete the message.",
+        icon: "error"
+      });
+    }
+  };
+
+  const handleEdit = (recipientEmail, recipientName) => {
+    Swal.fire({
+      title: "Send reply",
+      html: `
+        <input id="swal-reply" class="swal2-input" style="height: 100px;" placeholder="Reply Text">
+      `,
+      focusConfirm: false,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      cancelButtonText: 'Cancel',
+      preConfirm: () => {
+        return {
+          message: document.getElementById("swal-reply").value,
+          email: recipientEmail,
+          name: recipientName
+        };
+      }
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await axios.post(`http://localhost:7000/invoices`, result.value);
+          console.log("Reply sent: ", response);
+          if (response.status === 200) {
+            await fetchData();
+            Swal.fire({
+              title: "Sent!",
+              text: "Reply message has been sent.",
+              icon: "success"
+            });
+          } else {
+            throw new Error('Failed to send reply message');
+          }
+        } catch (error) {
+          console.error('Error sending reply message:', error);
+          Swal.fire({
+            title: "Error!",
+            text: "Failed to send the reply message.",
+            icon: "error"
+          });
+        }
+      }
+    });
+  };
+  
   const columns = [
     { field: "id", headerName: "ID" },
+    { field: "name", headerName: "Name", flex: 1 },
+    { field: "email", headerName: "Email", flex: 1 },
+    { field: "date", headerName: "Date", flex: 1 },
+    { field: "message", headerName: "Message", flex: 3 },
     {
-      field: "name",
-      headerName: "Name",
+      field: "actions",
+      headerName: "Actions",
       flex: 1,
-      cellClassName: "name-column--cell",
-    },
-    {
-      field: "phone",
-      headerName: "Phone Number",
-      flex: 1,
-    },
-    {
-      field: "email",
-      headerName: "Email",
-      flex: 1,
-    },
-    {
-      field: "cost",
-      headerName: "Cost",
-      flex: 1,
-      renderCell: (params) => (
-        <Typography color={colors.greenAccent[500]}>
-          ${params.row.cost}
-        </Typography>
+      renderCell: ({ row }) => (
+        <>
+          <Button variant="contained" color="error" onClick={() => handleDelete(row.id)}>
+            Delete
+          </Button>
+          <Button variant="contained" color="primary" onClick={() => handleEdit(row.email, row.name)}>
+            Reply
+          </Button>
+        </>
       ),
     },
-    {
-      field: "date",
-      headerName: "Date",
-      flex: 1,
-    },
   ];
-
   return (
     <Box m="20px">
-      <Header title="INVOICES" subtitle="List of Invoice Balances" />
+      <Header title="Messages" subtitle="List of Messages " />
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -74,7 +160,8 @@ const Invoices = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataInvoices} columns={columns} />
+
+        <DataGrid checkboxSelection rows={messageData} columns={columns} />
       </Box>
     </Box>
   );

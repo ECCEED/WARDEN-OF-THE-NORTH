@@ -32,6 +32,7 @@ const Login = () => {
 
   const handleLoginSuccess = (userId) => {
     localStorage.setItem('userId', userId); 
+    localStorage.setItem('email', email); 
     navigate('/', { state: { alert: { message: 'Login successful', severity: 'success' } } });
   }
 
