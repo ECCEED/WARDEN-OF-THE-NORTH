@@ -15,11 +15,15 @@ const messages =require("./routes/Messageroutes")
   
 
 const products = require("./routes/product")
+
 const Purchase = require("./models/purchase");
 const purchases = require("./routes/purchase");
 
+const claim=require("./models/claim");
+const claims=require("./routes/claim");
 
-
+// const repair =require("./models/repairs");
+const repairs =require("./routes/repair");
 mongoose.connect(process.env.DATABASE)
  
 
@@ -90,7 +94,12 @@ db.once("open", async ()=>{
     app.use('/',messages)
 
     app.use('/purchase',purchases)
-   
+    app.use('/claim',claims)
+
+    app.use('/repair',repairs)
 
     
 
+    
+
+ 
