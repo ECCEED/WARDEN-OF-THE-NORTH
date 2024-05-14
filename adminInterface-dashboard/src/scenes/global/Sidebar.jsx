@@ -19,7 +19,7 @@ import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 
-import AllProducts from "../all_products";
+
 
 import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined';
 

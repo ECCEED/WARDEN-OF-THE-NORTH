@@ -12,7 +12,10 @@ const Navbar = () => {
     
 
 
-
+    const handleLogout = () => {
+        localStorage.removeItem('userId'); 
+        navigate('/');
+    };
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light py-3 sticky-top">
