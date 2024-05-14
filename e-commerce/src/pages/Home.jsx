@@ -1,5 +1,5 @@
 
-import { Navbar, Main, Footer } from "../components";
+import { Navbar, Main, Footer, Contracts } from "../components";
 
 function Home() {
   return (
@@ -7,6 +7,7 @@ function Home() {
       <Navbar />
 
       <Main />
+      <Contracts/>
       
       
       <Footer />

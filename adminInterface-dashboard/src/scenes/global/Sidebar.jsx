@@ -18,7 +18,11 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+
+import AllProducts from "../all_products";
+
 import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined';
+
 
 
 const Item = ({ title, to, icon, selected, setSelected, adminId }) => {
@@ -76,7 +80,9 @@ const Sidebar = () => {
         <>
           <Item title="Dashboard" to="/dashboard" icon={<HomeOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
           <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }}>Data</Typography>
+
           <Item title="Items To repair" to="/reparables" icon={<BuildOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+
           <Item title="Messages" to="/invoices" icon={<ForumTwoToneIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
           <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }}>Pages</Typography>
           <Item title="Profile Form" to="/form" icon={<PersonOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
@@ -90,8 +96,11 @@ const Sidebar = () => {
         <>
           <Item title="Dashboard" to="/dashboard" icon={<HomeOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
           <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }}>Data</Typography>
-          <Item title="add product" to="/add_product" icon={<BuildOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
-          <Item title="Products" to="/all_products" icon={<ForumTwoToneIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+
+          <Item title="Add product" to="/add_product" icon={<BuildOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+          <Item title="All Products" to="/all_products" icon={<ForumTwoToneIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+          <Item title="Messages" to="/invoices" icon={<ForumTwoToneIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+
           <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }}>Pages</Typography>
           <Item title="Profile Form" to="/form" icon={<PersonOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
           <Item title="Calendar" to="/calendar" icon={<CalendarTodayOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
@@ -99,22 +108,28 @@ const Sidebar = () => {
         </>
       );
     }
+
     else if(userRole === "Insurance_admin"){
       return (
         <>
           <Item title="Dashboard" to="/dashboard" icon={<HomeOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
           <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }}>Data</Typography>
-          <Item title="claims" to="/claim" icon={<ReportProblemOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+
+          <Item title="Add contract" to="/add_contract" icon={<BuildOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+          <Item title="All Contract" to="/all_contracts" icon={<ForumTwoToneIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
           <Item title="Messages" to="/invoices" icon={<ForumTwoToneIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+            <Item title="claims" to="/claim" icon={<ReportProblemOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
           <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }}>Pages</Typography>
           <Item title="Profile Form" to="/form" icon={<PersonOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+          <Item title="Calendar" to="/calendar" icon={<CalendarTodayOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+          <Item title="FAQ Page" to="/faq" icon={<HelpOutlineOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
         </>
       );
     }
     
     
     
-    
+
     else {
 
       return (

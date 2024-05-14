@@ -20,11 +20,13 @@ const ProfilePage = () => {
 
   const [userData, setUserData] = useState(null);
   const [purchaseHistory, setPurchaseHistory] = useState([]);
+
   const [claimStatus, setClaimStatus] = useState({}); 
   
   useEffect(() => {
     if (userId) {
       
+
       axios.get(`http://localhost:7000/profile/${userId}`)
         .then(response => {
           setUserData(response.data);
@@ -33,11 +35,12 @@ const ProfilePage = () => {
           console.error('Error fetching user data:', error);
         });
 
-      
+
       axios.get(`http://localhost:7000/purchase/history/${userId}`)
         .then(response => {
           setPurchaseHistory(response.data);
           console.log(response.data);
+
 
           
           axios.get(`http://localhost:7000/claim/getstatus/${userId}`)
@@ -48,6 +51,7 @@ const ProfilePage = () => {
             .catch(error => {
               console.error('Error fetching claim status:', error);
             });
+
         })
         .catch(error => {
           console.error('Error fetching purchase history:', error);
@@ -99,7 +103,9 @@ const ProfilePage = () => {
 
               <MDBCard className="mb-4 d-flex flex-wrap">
                 <MDBCardBody className="d-flex flex-wrap">
+
                 {purchaseHistory.map((purchase, index) => (
+
                     purchase.product && (
                       <BasicCard
                         key={index}
@@ -107,12 +113,14 @@ const ProfilePage = () => {
                         price={purchase.product.price}
                         description={purchase.product.description}
                         photo={purchase.product.imgID}
+
                         purchaseId={purchase._id} 
                         claimStatus={claimStatus[purchase.product._id]} 
                         className="mb-3 me-3"
                       >
                         <Link to={`/claim?purchaseId=${purchase._id}`} className="btn btn-primary">Make a Claim</Link>
                       </BasicCard>
+
                     )
                   ))}
                 </MDBCardBody>

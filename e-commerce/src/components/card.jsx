@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+
 import { Link } from 'react-router-dom';
 
 function BasicCard({ name, description, price, photo, purchaseId, claimStatus }) {
@@ -36,3 +37,4 @@ function BasicCard({ name, description, price, photo, purchaseId, claimStatus })
 }
 
 export default BasicCard;
+

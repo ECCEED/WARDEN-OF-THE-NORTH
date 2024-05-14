@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import logo from '../img/warden.png';
 
+
 const Navbar = () => {
     const state = useSelector(state => state.handleCart);
     const dispatch = useDispatch();
@@ -12,16 +13,6 @@ const Navbar = () => {
 
 
 
-
-    const activeLinkStyle = {
-        borderBottom: '10px solid #4169E1',
-        color: '#4169E1'
-    };
-
-    const handleLogout = () => {
-        localStorage.removeItem('userId'); 
-        navigate('/');
-    };
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light py-3 sticky-top">
@@ -41,10 +32,7 @@ const Navbar = () => {
                             <NavLink className="nav-link" to="/" exact>Home</NavLink>
                         </li>
 
-                            <li className="nav-item">
-                            <NavLink className="nav-link" activestyle={activeLinkStyle} to="/categories">Categories</NavLink>
-
-                        </li>
+                         
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/product">Products</NavLink>
                         </li>

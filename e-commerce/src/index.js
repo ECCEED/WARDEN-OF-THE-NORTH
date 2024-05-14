@@ -8,7 +8,9 @@ import store from './redux/store';
 
 
 
-import { Home, Product, Products, AboutPage, ContactPage, Cart,Computers, Login, Register, Checkout ,EmailVerify,ProfilePage,Phones,Updateprofile,FotgotPassword,Resetyoupassword, PageNotFound, Hi, AddProduct, Upload,AddContract ,AddInsurance,Insurance, Claim, Categories , Confirm} from "./pages"
+import { Home, Product, Products, AboutPage, ContactPage, Cart,Computers, Login, Register,
+   Checkout ,EmailVerify,ProfilePage,Phones,Updateprofile,FotgotPassword,Resetyoupassword, 
+   PageNotFound, Hi, AddProduct, Upload,AddContract ,AddInsurance,Insurance, Claim , Confirm , Contract} from "./pages"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,6 +23,7 @@ root.render(
         <Route path='/claim' element={<Claim/>} />
         <Route path='/addContract' element={<AddContract/>} />
         <Route path='/confirm' element={<Confirm/>} />
+        <Route path = '/contracts' element={<Contract/>}/>
         <Route path='/hi' element={<Hi /> }  />
         <Route path="/" element={<Home />} />
         <Route path="/upload" element ={<Upload/>}/>
@@ -28,7 +31,6 @@ root.render(
         <Route path="/Insurance" element={<Insurance/>} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/about" element={<AboutPage />} />
-        <Route path="/categories" element={<Categories />} />
         <Route path="/phones" element={<Phones />} />  
         <Route path="/computers" element={<Computers />} />  
 

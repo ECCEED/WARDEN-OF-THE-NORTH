@@ -17,6 +17,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tabs": "^1.0.4",
     "@reduxjs/toolkit": "^1.8.5",
+    "@s-ui/react-card-subscription": "^1.15.0",
     "@splinetool/runtime": "^1.2.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
