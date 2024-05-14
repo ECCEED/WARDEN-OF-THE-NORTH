@@ -15,7 +15,7 @@ const createContract = async (req, res) => {
 const getAllContracts = async (req, res) => {
     try {
         const contracts = await Contract.find();
-        res.status(200).json(contracts); // Changed from Contracts to contracts
+        res.status(200).json(contracts); 
     } catch (error) {
         res.status(500).json({ error: 'Failed to get Contracts', message: error.message });
     }

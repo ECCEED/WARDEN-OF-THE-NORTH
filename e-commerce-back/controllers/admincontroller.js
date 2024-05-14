@@ -1,5 +1,6 @@
 const AdminModel = require('../models/Admins');
 const RegisterModel = require('../models/Register');
+const MessageModel = require('../models/messages');
 const bcrypt = require('bcryptjs');
 
 const AdminLogin = async (req, res) => {
@@ -132,7 +133,44 @@ const updateUsers = async (req, res) => {
         return res.status(500).json({ message: "Something went wrong" });
     }
 };
+const getUserNumbers = async (req, res) => {
+    try {
+        const numberOfClients = await RegisterModel.countDocuments();
+        res.json({ numberOfClients });
+    } catch (error) {
+        console.error('Error fetching number of clients:', error);
+        res.status(500).json({ error: 'Failed to fetch number of clients' });
+    }
+};
+const getAdminsNumbers = async (req, res) => {
+    try {
+        const numberOfAdmins = await AdminModel.countDocuments();
+        res.json({ numberOfAdmins });
+    } catch (error) {
+        console.error('Error fetching number of clients:', error);
+        res.status(500).json({ error: 'Failed to fetch number of clients' });
+    }
+};
+const getMessagesNumbers = async (req, res) => {
+    const adminId = req.params.id;
+    try {
+       
+        const admin = await AdminModel.findById(adminId);
+        if (admin) {
+           
+            const messages = await MessageModel.find({ receiver: admin.role });
 
+            const numberOfMessages = messages.length;
+
+            res.status(200).json({ numberOfMessages: numberOfMessages });
+        } else {
+            res.status(404).json({ message: 'Admin not found' });
+        }
+    } catch (error) {
+        console.error("Error fetching messages for admin:", error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
 
 
  
@@ -147,4 +185,7 @@ module.exports = {
     FetchAdmin,
     updateAdmin,
     updateUsers,
+    getUserNumbers,
+    getAdminsNumbers,
+    getMessagesNumbers
 };
