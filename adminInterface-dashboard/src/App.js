@@ -54,8 +54,6 @@ function App() {
               <Route path="/add_contract" element={<Add_Contract/>} />
               <Route path="/all_products" element={<AllProducts />} />
               <Route path="/all_contracts" element={<AllContracts />} />
-              <Route path="/bar" element={<Bar />} />
-              <Route path="/line" element={<Line />} />
 
 
               <Route path="/faq" element={<FAQ />} />
