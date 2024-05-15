@@ -1,21 +1,24 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-
 import { Link } from 'react-router-dom';
 
 function BasicCard({ name, description, price, photo, purchaseId, claimStatus }) {
   const getStatusColor = (status) => {
     switch (status) {
       case 'Repayed':
-        return 'text-success'; // Green color
+        return 'text-success'; 
       case 'Rejected':
-        return 'text-danger'; // Red color
+        return 'text-danger'; 
       case 'Sent To Repair':
-        return 'text-warning'; // Yellow color
+        return 'text-warning'; 
       default:
-        return ''; // Default color
+        return ''; 
     }
+  };
+
+  const isClaimable = (status) => {
+    return !['Repayed', 'Rejected', 'Sent To Repair'].includes(status);
   };
 
   return (
@@ -30,11 +33,12 @@ function BasicCard({ name, description, price, photo, purchaseId, claimStatus })
         <ListGroup.Item>Status: <span className={getStatusColor(claimStatus)}>{claimStatus}</span></ListGroup.Item>
       </ListGroup>
       <Card.Body>
-        <Link to={`/claim?purchaseId=${purchaseId}`} className="card-link">Make a Claim</Link>
+        {isClaimable(claimStatus) && (
+          <Link to={`/claim?purchaseId=${purchaseId}`} className="card-link">Make a Claim</Link>
+        )}
       </Card.Body>
     </Card>
   );
 }
 
 export default BasicCard;
-

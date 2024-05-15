@@ -54,12 +54,12 @@ const ProductToRepair = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const columns = [
-        {
-            field: "id",
-            headerName: "ID",
-            flex: 1,
-            cellClassName: "name-column--cell",
-        },
+        // {
+        //     field: "id",
+        //     headerName: "ID",
+        //     flex: 1,
+        //     cellClassName: "name-column--cell",
+        // },
         {
             field: "productName",
             headerName: "Product Name",

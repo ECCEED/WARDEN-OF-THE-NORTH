@@ -83,7 +83,17 @@ const markasRepaired = async (req, res) => {
         res.status(500).json({ error: "Failed to mark repair as repaired and send email" });
     }
 }
+const NumberOfProductsToRepair = async (req, res) => {
+    try {
+        const numberOfProductsToRepair = await Repair.countDocuments();
+        res.json({ numberOfProductsToRepair });
+    } catch (error) {
+        console.error('Error fetching number of products To Repair:', error);
+        res.status(500).json({ error: 'Failed to fetch number of products To Repair' });
+    }
+};
 module.exports = {
     GetAllItemsRepairable,
-    markasRepaired
+    markasRepaired,
+    NumberOfProductsToRepair
 }

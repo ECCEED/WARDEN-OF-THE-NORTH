@@ -58,6 +58,15 @@ try {
   res.status(500).json({ error: "Failed to delete the product", message: error.message });
 }
 };
+const getnumberOfContract =async (req,res) =>{
+    try {
+        const numberOfContract = await Contract.countDocuments(); 
+        res.json({ numberOfContract }); 
+    } catch (error) {
+        console.error('Error fetching number of contract:', error);
+        res.status(500).json({ error: 'Failed to fetch number of contract' }); 
+    }
+}
 
 
 
@@ -66,5 +75,6 @@ module.exports = {
     createContract,
     getAllContracts,
     deleteContract,
-    updateContract
+    updateContract,
+    getnumberOfContract
 };

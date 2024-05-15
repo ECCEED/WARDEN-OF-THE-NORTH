@@ -24,7 +24,7 @@ const ContactPage = () => {
       
       const loggedInUserEmail = localStorage.getItem('email');
 
-      // Check if the email input matches the logged-in user's email
+      
       if (email === loggedInUserEmail) {
         axios.post('http://localhost:7000/contact', { email , selectedValue , message}) 
           .then((result) => {
@@ -64,7 +64,7 @@ const ContactPage = () => {
                   type="email"
                   className="form-control"
                   id="Email"
-                  placeholder="name@example.com"
+                  placeholder="Your Current Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />

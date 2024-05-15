@@ -18,9 +18,8 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-
-
-
+import ArticleIcon from '@mui/icons-material/Article';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined';
 
 
@@ -82,7 +81,6 @@ const Sidebar = () => {
           <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }}>Data</Typography>
 
           <Item title="Items To repair" to="/reparables" icon={<BuildOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
-
           <Item title="Messages" to="/invoices" icon={<ForumTwoToneIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
           <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }}>Pages</Typography>
           <Item title="Profile Form" to="/form" icon={<PersonOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
@@ -115,8 +113,8 @@ const Sidebar = () => {
           <Item title="Dashboard" to="/dashboard" icon={<HomeOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
           <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }}>Data</Typography>
 
-          <Item title="Add contract" to="/add_contract" icon={<BuildOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
-          <Item title="All Contract" to="/all_contracts" icon={<ForumTwoToneIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+          <Item title="Add contract" to="/add_contract" icon={<NoteAddIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
+          <Item title="All Contract" to="/all_contracts" icon={<ArticleIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
           <Item title="Messages" to="/invoices" icon={<ForumTwoToneIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
             <Item title="claims" to="/claim" icon={<ReportProblemOutlinedIcon />} selected={selected} setSelected={setSelected} adminId={adminId} />
           <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }}>Pages</Typography>

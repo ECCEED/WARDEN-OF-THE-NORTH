@@ -98,7 +98,7 @@ const handleEdit = async (UserId) => {
   const colors = tokens(theme.palette.mode);
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
+    // { field: "id", headerName: "ID", flex: 0.5 },
     {
       field: "name",
       headerName: "Name",

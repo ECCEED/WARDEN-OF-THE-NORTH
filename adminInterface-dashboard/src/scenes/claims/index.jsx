@@ -118,7 +118,7 @@ const Claims = () => {
     };
 
     const columns = [
-        { field: "id", headerName: "ID" },
+        // { field: "id", headerName: "ID" },
         { field: "senderName", headerName: "Sender Name", flex: 1 },
         { field: "productName", headerName: "Product Name", flex: 1 },
         { field: "issue", headerName: "Issue", flex: 1 },
