@@ -107,7 +107,7 @@ const Invoices = () => {
   };
   
   const columns = [
-    { field: "id", headerName: "ID" },
+    // { field: "id", headerName: "ID" },
     { field: "name", headerName: "Name", flex: 1 },
     { field: "email", headerName: "Email", flex: 1 },
     { field: "date", headerName: "Date", flex: 1 },
