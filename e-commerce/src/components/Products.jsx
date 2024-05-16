@@ -79,7 +79,10 @@ const Products = () => {
   const ShowProducts = () => {
     return (
       <>
+      
+      
         <div className="buttons text-center py-5">
+          
           <button className="btn btn-outline-dark btn-sm m-2" onClick={() => setFilter(data)}>All</button>
 
           <button className="btn btn-outline-dark btn-sm m-2" onClick={() => filterProduct("Computers")}>Computers</button>
@@ -105,10 +108,10 @@ const Products = () => {
                 <div className="card-body">
                   <h5 className="card-title">
 
-                    {product.name.substring(0, 12)}...
+                    {product.name.substring(0, 12)}
                   </h5>
                   <p className="card-text">
-                    {product.description.substring(0, 90)}...
+                    {product.description.substring(0, 90)}
                   </p>
                 </div>
                 <ul className="list-group list-group-flush">
@@ -137,8 +140,10 @@ const Products = () => {
       <div className="container my-3 py-3">
         <div className="row">
           <div className="col-12">
-            <h2 className="display-5 text-center"> Products</h2>
-            <hr />
+          <h2 className="text-center" style={{ fontSize: "3.6rem", color: "#4169E1" , fontFamily: 'Abril Fatface' }}>
+                Products
+              </h2>           
+                 <hr />
           </div>
         </div>
         <div className="row justify-content-center">

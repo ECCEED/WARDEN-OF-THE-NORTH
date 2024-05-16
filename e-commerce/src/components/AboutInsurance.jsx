@@ -4,13 +4,15 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import axios from "axios";
 import contractimage from "../img/contract.avif";
+import replogo from "../img/repairlogo.jpg";
+import shoplogo from "../img/shoplogo.png";
+import inslogo from "../img/W.png";
 
 const Contracts = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  let componentMounted = true;
-
   const dispatch = useDispatch();
+  let componentMounted = true;
 
   useEffect(() => {
     const getContracts = async () => {
@@ -56,18 +58,16 @@ const Contracts = () => {
           <div key={contract._id} className="col-md-4 col-sm-6 col-xs-8 col-12 mb-4">
             <div className="card text-center h-100">
               <div className="card-body">
-                <div
-                  style={{
-                    padding: "40px",
-                    border: "1px solid #ccc",
-                    borderRadius: "5px",
-                    height: "100%",
-                  }}
-                >
+                <div style={{ height: "100%" }}>
                   <img src={contractimage} alt="contract" style={{ marginBottom: "20px", maxWidth: "100%" }} />
-                  <h5 className="card-title">{contract.name.substring(0, 12)}...</h5>
-                  <p className="card-text">{contract.description.substring(0, 90)}...</p>
-                  <div className="price">Price: ${contract.price}</div>
+                  <h5 className="card-title">{contract.name.substring(0, 12)}</h5>
+                  <p>Casse accidentelle</p>
+                  <p>Court-Circuit</p>
+                  <p>Oxydation & Humidité</p>
+                  <p>Infiltration</p>
+                  <p>Option vol</p>
+                  <p className="card-text">{contract.description.substring(0, 90)}</p>
+                  <div className="price">Price: {contract.price} DT</div>
                 </div>
               </div>
             </div>
@@ -78,14 +78,41 @@ const Contracts = () => {
   };
 
   return (
-    <div className="container my-3 py-3">
-      <div className="row">
-        <div className="col-12">
-          <h2 className="display-5 text-center">Contracts</h2>
-          <hr />
+    <div>
+      <div className="container my-3 py-3">
+        <div className="row">
+          <div className="col-12">
+            <h2 className="display-5 text-center">Learn More About</h2>
+            <hr />
+            <div className="text-center my-3 d-flex justify-content-center">
+              <div className="mx-5 text-center">
+                <a href="/repair-services">
+                  <img src={replogo} alt="Repair logo" style={{ maxWidth: "100px", height: "100px", borderRadius: "50%" }} />
+                </a>
+                <div>Repair Services</div>
+              </div>
+              <div className="mx-5 text-center">
+                <a href="/insurance">
+                  <img src={inslogo} alt="Insurance logo" style={{ maxWidth: "100px", height: "100px", borderRadius: "50%" }} />
+                </a>
+                <div>Insurance</div>
+              </div>
+              <div className="mx-5 text-center">
+                <a href="/online-shopping">
+                  <img src={shoplogo} alt="Online Shopping logo" style={{ maxWidth: "100px", height: "100px", borderRadius: "50%" }} />
+                </a>
+                <div>Online Shopping</div>
+              </div>
+            </div>
+          </div>
         </div>
+        <br/>
+        <br/>
+        <br/>
+        <h2 className="display-5 text-center">Contracts</h2>
+        <hr />
+        <div className="row justify-content-center">{loading ? <Loading /> : <ShowContracts />}</div>
       </div>
-      <div className="row justify-content-center">{loading ? <Loading /> : <ShowContracts />}</div>
     </div>
   );
 };

@@ -122,7 +122,7 @@ const Product = () => {
                 onClick={handleadd}
                 style={{ display: 'inline-block', marginRight: '10px' }}
               >
-                buy without insurance
+                buy Without Insurance
               </button>
 
               <button
@@ -130,7 +130,7 @@ const Product = () => {
                 onClick={handleins}
                 style={{ display: 'inline-block' }}
               >
-                But with insurance
+                Buy With Insurance
               </button>
             </div>
             </div>
@@ -146,9 +146,10 @@ const Product = () => {
       <Navbar />
       <div className="container">
         <div className="row">{loading ? <Loading /> : <ShowProduct />}</div>
-        <div className="row my-5 py-5">
+        <div className="row my-10 py-10">
+          
           <div className="d-none d-md-block">
-          <h2 className="">You may also Like</h2>
+         
             <Marquee
               pauseOnHover={true}
               pauseOnClick={true}

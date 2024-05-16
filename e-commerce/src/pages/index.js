@@ -1,9 +1,10 @@
 export { default as Home } from './Home';
 export { default as Products } from './Products';
-export {default as Contract} from './AboutInsurance'
 export { default as Insurance } from './Insurance';
 export { default as Product } from './Product';
 export { default as AboutPage } from './AboutPage';
+export { default as AboutINS } from './AboutInsPage';
+export {default as AboutRepair} from './AboutRepair';
 export { default as ContactPage } from './ContactPage';
 export { default as Cart } from './Cart';
 export { default as Login } from './Login';
