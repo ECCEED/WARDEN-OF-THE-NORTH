@@ -3,7 +3,7 @@
 
 const router = require('express').Router()
 
-const {createProduct,searchProduct,getAllProducts,uploadImage,upload, deleteProduct, updateProduct,getNumberOfProducts} = require("../controllers/product")
+const {createProduct,searchProduct,getAllProducts,uploadImage,upload, deleteProduct, updateProduct,getNumberOfProducts,updateProductAndDecrementStock} = require("../controllers/product")
 
 
 
@@ -15,6 +15,7 @@ router.post('/upload', upload.single('imageFile'),uploadImage);
 router.delete('/deleteProduct/:id',deleteProduct);
 router.put('/updateProduct/:id',updateProduct);
 router.get('/getnumberproducts',getNumberOfProducts);
+router.patch('/updateStock',updateProductAndDecrementStock);
  
 
 module.exports=router; 

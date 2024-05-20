@@ -58,6 +58,8 @@ const AllProducts = () => {
         <input id="swal-category" class="swal2-input" placeholder="Category" value="${product.category}">
         <input id="swal-description" class="swal2-input" placeholder="Description" value="${product.description}">
         <input id="swal-imgID" class="swal2-input" placeholder="imgID" value="${product.imgID}">
+        <input id="swal-stock" class="swal2-input" placeholder="Stock" value="${product.stock}">
+
       `,
       focusConfirm: false,
       showCancelButton: true,
@@ -69,7 +71,9 @@ const AllProducts = () => {
           price: document.getElementById("swal-price").value,
           category: document.getElementById("swal-category").value,
           description: document.getElementById("swal-description").value,
-          imgID: document.getElementById("swal-imgID").value
+          imgID: document.getElementById("swal-imgID").value,
+          stock: document.getElementById("swal-stock").value,
+
         };
       }
     });
@@ -112,6 +116,11 @@ const AllProducts = () => {
     {
       field: "price",
       headerName: "Price",
+      flex: 1,
+    },
+    {
+      field: "stock",
+      headerName: "Stock",
       flex: 1,
     },
     {

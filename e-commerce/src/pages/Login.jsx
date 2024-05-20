@@ -15,6 +15,7 @@ import {
   MDBInput,
   MDBIcon,
 } from 'mdb-react-ui-kit';
+import hellologo from '../img/warden3rdlogo.png';
 
 const NewLoginPage = () => {
   const location = useLocation();
@@ -87,9 +88,8 @@ const NewLoginPage = () => {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
-                  <MDBBtn className="mb-4" size="lg" type="submit" style={{ maxWidth: '100%' }}>
-                    Login
-                  </MDBBtn>
+                  <button className="btn btn-outline-dark m-2" type="submit">Login</button>
+
                 </form>
                 <div className="my-3">
                   <p>
@@ -107,7 +107,7 @@ const NewLoginPage = () => {
                 </div>
               </MDBCol>
               <MDBCol md="10" lg="6" className="order-1 order-lg-2 d-flex align-items-center">
-                <MDBCardImage src="https://static1.srcdn.com/wordpress/wp-content/uploads/2019/09/League-Legends-8-Million-Concurrent-Players.jpg?q=50&fit=contain&w=1140&h=&dpr=1.5" fluid />
+                <MDBCardImage src={hellologo} fluid />
               </MDBCol>
             </MDBRow>
           </MDBCardBody>

@@ -68,9 +68,8 @@ const ProfilePage = () => {
                   />
                   <div className="d-flex justify-content-center mb-2">
                     <Link to={`/Updateprofile?id=${userId}`}>
-                      <MDBBtn outline className="ms-1">
-                        Update profile
-                      </MDBBtn>
+                    <button className="btn btn-outline-dark m-2" >Update Profile</  button>
+
                     </Link>
                   </div>
                 </MDBCardBody>

@@ -128,18 +128,8 @@ const Phones = () => {
         </div>
 
         {filter.map((product) => {
-          let imgSrc;
+          
 
-          try {
-            imgSrc =
-              require(`../img/${product.imgID}/image.jpg`) ||
-              require(`../img/${product.imgID}/image.jgeg`) ||
-              require(`../img/${product.imgID}/image.png`) ||
-              require(`../img/${product.imgID}/image.svg`);
-          } catch (error) {
-            imgSrc = img;
-            console.log("error occurred while fetching image ", error);
-          }
 
           return (
             <div
@@ -150,7 +140,7 @@ const Phones = () => {
               <div className="card text-center h-100" key={product._id}>
                 <img
                   className="card-img-top p-3"
-                  src={imgSrc}
+                  src={product.img}
                   alt="Card"
                   height={300}
                 />
@@ -195,8 +185,9 @@ const Phones = () => {
       <div className="container my-3 py-3">
         <div className="row">
           <div className="col-12">
-            <h2 className="display-5 text-center">Latest Products</h2>
-            <hr />
+          <h2 className="text-center" style={{ fontSize: "3.6rem", color: "#4169E1", fontFamily: 'Abril Fatface' }}>
+              Products
+            </h2>            <hr />
           </div>
         </div>
         <div className="row justify-content-center">

@@ -7,8 +7,8 @@ const Product = require('../models/product');
 
 const createProduct = async (req, res) => {
     try {
-        const { name, price, description, category, imgID } = req.body;
-        const newProduct = new Product({ name, price, description, category, imgID });
+        const { name, price, description, category, imgID,stock } = req.body;
+        const newProduct = new Product({ name, price, description, category, imgID ,stock});
         await newProduct.save();
         res.status(201).json(newProduct);
     } catch (error) {
@@ -75,7 +75,7 @@ const upload = multer({
 const updateProduct = async (req, res) => {
 
     const { id } = req.params;
-    const { name, price, category, description, imgID } = req.body;
+    const { name, price, category, description, imgID, stock } = req.body;
     try {
         const existingproduct = await Product.findById(id);
 
@@ -86,6 +86,7 @@ const updateProduct = async (req, res) => {
         if (category) update.category = category;
         if (description) update.description = description;
         if (imgID) update.imgID = imgID;
+        if (stock) update.stock = stock;
 
         const updatedProduct = await Product.findByIdAndUpdate(id, update, { new: true });
 
@@ -121,6 +122,27 @@ const getNumberOfProducts = async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch number of products' });
     }
 };
+const updateProductAndDecrementStock = async (req, res) => {
+    const { id } = req.body;
+
+    try {
+        const updatedProduct = await Product.findOneAndUpdate(
+            { _id: id, stock: { $gt: 0 } }, 
+            { $inc: { stock: -1 } }, 
+            { new: true } 
+        );
+
+        if (!updatedProduct) {
+            return res.status(404).json({ message: "Product not found or out of stock." });
+        }
+
+        res.status(200).json(updatedProduct);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Something went wrong", error });
+    }
+};
+
 
 
 module.exports = {
@@ -131,6 +153,7 @@ module.exports = {
     upload,
     deleteProduct,
     updateProduct,
-    getNumberOfProducts
+    getNumberOfProducts,
+    updateProductAndDecrementStock
 };
  

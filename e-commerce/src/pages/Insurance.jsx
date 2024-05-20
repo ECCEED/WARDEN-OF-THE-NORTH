@@ -234,7 +234,7 @@ const Insurance = () => {
                       </div>
 
                       <div className="col-sm-6 my-1">
-                        <label htmlFor="firstName" className="form-label">
+                      <label htmlFor="firstName" className="form-label">
                           First name
                         </label>
                         <input
@@ -246,9 +246,7 @@ const Insurance = () => {
                           value={firstName}
                           onChange={(e) => setFirstName(e.target.value)}
                         />
-                        <div className="invalid-feedback">
-                          Valid first name is required.
-                        </div>
+                       
                       </div>
                       <div className="col-12 my-1">
                         <label htmlFor="email" className="form-label">

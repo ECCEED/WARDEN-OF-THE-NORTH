@@ -1,5 +1,8 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
+import carousel1 from '../img/caroussel 1.png';
+import carousel2 from '../img/caroussel2.jpg';
+import carousel3 from '../img/caroussel3.jpg'
 
 const CarouselFadeExample = () => {
   return (
@@ -12,7 +15,7 @@ const CarouselFadeExample = () => {
           }
 
           .carousel-image {
-            height: 500px; /* Adjust height for better visual balance */
+            height: 600px; /* Adjust height for better visual balance */
             object-fit: cover; 
           }
 
@@ -34,7 +37,7 @@ const CarouselFadeExample = () => {
         <Carousel.Item>
           <img
             className="d-block w-100 carousel-image" 
-            src="https://www.bajajallianz.com/blog/wp-content/uploads/2020/11/Know-All-About-Electronic-Equipment-Insurance-And-Coverage-It-Offers.jpg"
+            src= {carousel1}
             alt="First slide"
           />
           <Carousel.Caption>
@@ -45,7 +48,7 @@ const CarouselFadeExample = () => {
         <Carousel.Item>
           <img
             className="d-block w-100 carousel-image" 
-            src="https://watermark.lovepik.com/photo/40008/0007.jpg_wh1200.jpg"
+            src={carousel2}
             alt="Second slide"
           />
           <Carousel.Caption>
@@ -56,7 +59,7 @@ const CarouselFadeExample = () => {
         <Carousel.Item>
           <img
             className="d-block w-100 carousel-image" 
-            src="https://i.pinimg.com/564x/f7/f6/be/f7f6be4c6b108aeac6ab65f505ab2a67.jpg"
+            src={carousel3}
             alt="Third slide"
           />
           <Carousel.Caption>

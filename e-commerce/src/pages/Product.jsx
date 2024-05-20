@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { Link, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import { useDispatch } from "react-redux";
 import { addCart } from "../redux/action";
-
-import img from "../img/r6.jpg"
+import withAuth from "../HOC/withAuth";
 import { Footer, Navbar } from "../components";
 import { useNavigate } from "react-router-dom";
 
@@ -82,15 +81,8 @@ const Product = () => {
 
   
   
-    let imgSrc;
+   
 
-    try {
-      imgSrc = 
-      product.imgID;
-    } catch (error) {
-      imgSrc = img;
-      console.log("error occured while fetching image ",error) 
-    }
 
 
 
@@ -100,45 +92,54 @@ const Product = () => {
         <div className="container my-5 py-2">
           <div className="row">
             <div className="col-md-6 col-sm-12 py-3">
-          
               <div className="img-fluid" style={{ width: '400px', height: '400px', backgroundColor: '#ccc' }}>
-
-              <img src={product.imgID} id="productImage"  style={{ width: '400px', height: '400px' }} />
-
+                <img src={product.imgID} id="productImage" style={{ width: '400px', height: '400px' }} />
               </div>
             </div>
             <div className="col-md-6 col-md-6 py-5">
-              <h4 className="text-uppercase text-muted">{product.category}</h4>
-              <h1 className="display-5">{product.name}</h1>
+              <h4 className="text-uppercase text-muted" >{product.category}</h4>
+              <h1 className="display-5" style={{ color: 'blue' }}>{product.name}</h1>
               <p className="lead">
                 {product.rating && product.rating.rate}{" "}
-                <i className="fa fa-star"></i>
+                <i className="fa fa-star" tyle={{ color: 'green' }}></i> <i className="fa fa-star" tyle={{ color: 'green' }}></i> <i className="fa fa-star" tyle={{ color: 'green' }}></i> <i className="fa fa-star" tyle={{ color: 'green' }}></i>
               </p>
-              <h3 className="display-6  my-4">${product.price}</h3>
+              <h3 className="display-6  my-4">{product.price} DT</h3>
               <p className="lead">{product.description}</p>
+              {product.stock > 0 ? (
+                <p className="lead" style={{ color: 'blue' }}>En stock</p>
+              ) : (
+                <p className="lead" style={{ color: 'red' }}>Out of stock</p>
+              )}
               <div>
-              <button
-                className="btn btn-outline-dark"
-                onClick={handleadd}
-                style={{ display: 'inline-block', marginRight: '10px' }}
-              >
-                buy without insurance
-              </button>
-
-              <button
-                className="btn btn-outline-dark"
-                onClick={handleins}
-                style={{ display: 'inline-block' }}
-              >
-                But with insurance
-              </button>
-            </div>
+                {product.stock > 0 ? (
+                  <>
+                    <button
+                      className="btn btn-outline-dark"
+                      onClick={handleadd}
+                      style={{ display: 'inline-block', marginRight: '10px' }}
+                    >
+                      Buy Without Insurance
+                    </button>
+                    <button
+                      className="btn btn-outline-dark"
+                      onClick={handleins}
+                      style={{ display: 'inline-block' }}
+                    >
+                      Buy With Insurance
+                    </button>
+                  </>
+                ) : (
+                  <p>This product is currently out of stock</p>
+                )}
+              </div>
             </div>
           </div>
         </div>
       </>
     );
   };
+  
+  
 
 
   return (
@@ -146,9 +147,10 @@ const Product = () => {
       <Navbar />
       <div className="container">
         <div className="row">{loading ? <Loading /> : <ShowProduct />}</div>
-        <div className="row my-5 py-5">
+        <div className="row my-10 py-10">
+          
           <div className="d-none d-md-block">
-          <h2 className="">You may also Like</h2>
+         
             <Marquee
               pauseOnHover={true}
               pauseOnClick={true}
@@ -165,5 +167,5 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default withAuth(Product);
   

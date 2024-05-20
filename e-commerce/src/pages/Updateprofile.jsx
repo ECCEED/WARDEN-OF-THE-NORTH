@@ -14,25 +14,24 @@ import {
 } from 'mdb-react-ui-kit';
 import { Footer, Navbar } from '../components';
 
-const Updateprofile = () => {
+const UpdateProfile = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const userId = searchParams.get('id');
-
+ 
   const [values, setValues] = useState({
     name: '',
     email: '',
-    password: '',
   });
   const [newPassword, setNewPassword] = useState('');
-  const [repeatNewPassword, setRepeatNewPassword] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     if (userId) {
       axios.get(`http://localhost:7000/profile/${userId}`)
         .then(response => {
           const { name, email } = response.data;
-          setValues({ ...values, name, email });
+          setValues({ name, email });
         })
         .catch(error => {
           console.error('Error fetching user data:', error);
@@ -43,29 +42,24 @@ const Updateprofile = () => {
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
 
-    let updatedValues = { ...values };
-    if (newPassword !== '') {
-      updatedValues.password = newPassword;
-    }
-    if (repeatNewPassword !== '') {
-      updatedValues.repeatPassword = repeatNewPassword;
-    }
+    const updatedValues = {
+      newName: values.name,
+      newEmail: values.email,
+      newPassword: newPassword,
+    };
 
     try {
-      await axios.put(`http://localhost:7000/Updateprofile/${userId}`, updatedValues);
-      alert('Profile updated successfully');
+      await axios.put(`http://localhost:7000/updateprofile/${userId}`, updatedValues);
+      setSuccessMessage('Profile updated successfully');
     } catch (error) {
       console.error('Error updating profile:', error);
       alert('Failed to update profile. Please try again later.');
     }
   };
 
-  const handleNameChange = (e) => {
-    setValues({ ...values, name: e.target.value });
-  };
-
-  const handleEmailChange = (e) => {
-    setValues({ ...values, email: e.target.value });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
   };
 
   return (
@@ -98,8 +92,9 @@ const Updateprofile = () => {
                       <MDBCol sm="6">
                         <MDBInput
                           type="text"
+                          name="name"
                           value={values.name}
-                          onChange={handleNameChange}
+                          onChange={handleInputChange}
                         />
                       </MDBCol>
                     </MDBRow>
@@ -111,8 +106,9 @@ const Updateprofile = () => {
                       <MDBCol sm="6">
                         <MDBInput
                           type="email"
+                          name="email"
                           value={values.email}
-                          onChange={handleEmailChange}
+                          onChange={handleInputChange}
                         />
                       </MDBCol>
                     </MDBRow>
@@ -127,24 +123,24 @@ const Updateprofile = () => {
                           value={newPassword}
                           onChange={(e) => setNewPassword(e.target.value)}
                         />
+                        {successMessage && (
+                          <div style={{ color: 'green', marginTop: '10px' }}>
+                            {successMessage}
+                          </div>
+                        )}
                       </MDBCol>
                     </MDBRow>
                     <hr />
-                    <MDBRow>
-                      <MDBCol sm="3">
-                        <MDBCardText>Repeat New Password</MDBCardText>
-                      </MDBCol>
-                      <MDBCol sm="6">
-                        <MDBInput
-                          type="password"
-                          value={repeatNewPassword}
-                          onChange={(e) => setRepeatNewPassword(e.target.value)}
-                        />
+                  </MDBCardBody>
+                  {/* <MDBBtn type="submit">Update Profile</MDBBtn> */}
+                  {/* <button  className="btn btn-outline-dark m-2" type='submit'>Update Profile</button> */}
+                  <MDBRow className="text-center">
+                      <MDBCol>
+                        <button className="btn btn-outline-dark m-2" type="submit">Update Profile</button>
                       </MDBCol>
                     </MDBRow>
-                  </MDBCardBody>
-                  <MDBBtn type="submit">Update Profile</MDBBtn>
-                </form> 
+
+                </form>
               </MDBCard>
             </MDBCol>
           </MDBRow>
@@ -155,4 +151,4 @@ const Updateprofile = () => {
   );
 };
 
-export default Updateprofile;
+export default UpdateProfile;

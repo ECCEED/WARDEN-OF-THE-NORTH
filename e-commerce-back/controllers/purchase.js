@@ -3,8 +3,8 @@ const Purchase = require('../models/purchase');
 
 const createPurchase = async (req, res) => {
     try {
-        const { client, product, contract, vol, end_date } = req.body;
-        const newPurchase = new Purchase({ client, product, contract, vol, end_date });
+        const { client, product, contract, vol, end_date,creditCard } = req.body;
+        const newPurchase = new Purchase({ client, product, contract, vol, end_date,creditCard });
         await newPurchase.save();
         res.status(201).json(newPurchase);
     } catch (error) {
