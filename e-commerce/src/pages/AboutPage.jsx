@@ -1,33 +1,29 @@
-import React from 'react'
-import { Categories, Footer, Navbar} from "../components";
+import React from 'react';
+import { Categories, Footer, Navbar } from "../components";
+
 const AboutPage = () => {
   return (
     <>
       <Navbar />
       <div className="container my-3 py-3">
-        <h1 className="text-center">About Us</h1>
+        <h2 className="text-center" style={{ fontSize: "3.6rem", color: "#4169E1", fontFamily: 'Abril Fatface' }}>
+          About Our shop
+        </h2>
         <hr />
         <p className="lead text-center">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-          facere doloremque veritatis odit similique sequi. Odit amet fuga nam
-          quam quasi facilis sed doloremque saepe sint perspiciatis explicabo
-          totam vero quas provident ipsam, veritatis nostrum velit quos
-          recusandae est mollitia esse fugit dolore laudantium. Ex vel explicabo
-          earum unde eligendi autem praesentium, doloremque distinctio nesciunt
-          porro tempore quis eaque labore voluptatibus ea necessitatibus
-          exercitationem tempora molestias. Ad consequuntur veniam sequi ullam
-          tempore vel tenetur soluta dolore sunt maxime aliquam corporis est,
-          quo saepe dolorem optio minus sint nemo totam dolorum! Reprehenderit
-          delectus expedita a alias nam recusandae illo debitis repellat libero,
-          quasi explicabo molestiae saepe, dolorem tempore itaque eveniet quam
-          dignissimos blanditiis excepturi harum numquam vel nihil? Ipsum
+          At Our Shop, we take pride in offering a wide range of products across three main categories: phones, computers,
+           and household appliances. Our phone selection includes the latest models from top brands, catering to all preferences and budgets.
+            For those in need of computing solutions, our computer category features powerful laptops, versatile desktops, and accessories 
+            to enhance your digital experience. Additionally, our household appliances section offers a variety of essential items to simplify
+             daily tasks and enhance your living space. Whether you're in the market for a new smartphone, a high-performance laptop, or home
+              appliances to streamline your routines, Our Shop has you covered with quality products and competitive prices.
+
         </p>
-          <Categories/>
-        
+        <Categories />
       </div>
       <Footer />
     </>
   )
 }
 
-export default AboutPage
+export default AboutPage;

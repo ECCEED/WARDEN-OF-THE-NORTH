@@ -87,9 +87,8 @@ const Register = () => {
                     <MDBIcon fas icon="key me-3" size="lg" />
                     <MDBInput label="Repeat your password" id="form4" type="password" onChange={(e) => setRepeatPassword(e.target.value)} />
                   </div>
-                  <MDBBtn className="mb-4" size="lg" type="submit" style={{ maxWidth: '100%' }}>
-                    Register
-                  </MDBBtn>
+                  <button className="btn btn-outline-dark m-2" type="submit">Register</button>
+
                 </form>
                 <div className="my-3">
                   <p>

@@ -53,8 +53,9 @@ const ContactPage = () => {
     <>
       <Navbar />
       <div className="container my-3 py-3">
-        <h1 className="text-center" >Contact Us</h1>
-        <hr />
+      <h2 className="text-center" style={{ fontSize: "3.6rem", color: "#4169E1", fontFamily: 'Abril Fatface' }}>
+              Contact Us!
+            </h2>        <hr />
         <div className="row my-4 h-100">
           <div className="col-md-4 col-lg-4 col-sm-8 mx-auto">
             <form onSubmit={handleSubmit}>

@@ -7,6 +7,7 @@ const purchaseSchema = new mongoose.Schema({
 
     vol: { type: Boolean},
     end_date: { type: String },
+    creditCard: { type: String },
    
     
 });

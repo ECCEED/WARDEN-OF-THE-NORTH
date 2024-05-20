@@ -8,6 +8,8 @@ const AddProductForm = () => {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [imgID, setImgID] = useState("");
+  const [stock, setstock] = useState("");
+
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -18,6 +20,7 @@ const AddProductForm = () => {
         description: description,
         category: category,
         imgID: imgID,
+        stock: stock,
       };
 
       console.log("data is ", data);
@@ -59,6 +62,16 @@ const AddProductForm = () => {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             name="Price"
+            sx={{ gridColumn: "span 2" }}
+          />
+           <TextField
+            fullWidth
+            variant="filled"
+            type="text"
+            label="Stock"
+            value={stock}
+            onChange={(e) => setstock(e.target.value)}
+            name="Stock"
             sx={{ gridColumn: "span 2" }}
           />
           <TextField

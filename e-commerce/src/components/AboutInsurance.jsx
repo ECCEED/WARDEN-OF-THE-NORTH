@@ -7,6 +7,13 @@ import contractimage from "../img/contract.avif";
 import replogo from "../img/repairlogo.jpg";
 import shoplogo from "../img/shoplogo.png";
 import inslogo from "../img/W.png";
+import BrokenImageIcon from '@mui/icons-material/BrokenImage';
+import ChargingStationIcon from '@mui/icons-material/ChargingStation';
+import FormatColorResetIcon from '@mui/icons-material/FormatColorReset';
+import knife from '../img/game-icons--knife-thrust.svg';
+import DescriptionIcon from '@mui/icons-material/Description';
+import GavelIcon from '@mui/icons-material/Gavel';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 const Contracts = () => {
   const [data, setData] = useState([]);
@@ -60,14 +67,15 @@ const Contracts = () => {
               <div className="card-body">
                 <div style={{ height: "100%" }}>
                   <img src={contractimage} alt="contract" style={{ marginBottom: "20px", maxWidth: "100%" }} />
-                  <h5 className="card-title">{contract.name.substring(0, 12)}</h5>
-                  <p>Casse accidentelle</p>
-                  <p>Court-Circuit</p>
-                  <p>Oxydation & Humidité</p>
-                  <p>Infiltration</p>
-                  <p>Option vol</p>
-                  <p className="card-text">{contract.description.substring(0, 90)}</p>
-                  <div className="price">Price: {contract.price} DT</div>
+                  <h5 className="card-title"><GavelIcon/>{contract.name.substring(0, 12)}</h5>
+                  <p><BrokenImageIcon/>Casse accidentelle</p>
+                  <p><ChargingStationIcon/>Court-Circuit</p>
+                  <p><FormatColorResetIcon/>Oxydation & Humidité</p>
+                  <p>
+                    <img src={knife} alt="Knife Icon" /> Option vol
+                  </p>                 
+                   <p  className="card-text">  <DescriptionIcon/>{contract.description.substring(0, 90)}</p>
+                  <div className="price"><AttachMoneyIcon/>Price: {contract.price} DT</div>
                 </div>
               </div>
             </div>
@@ -86,19 +94,19 @@ const Contracts = () => {
             <hr />
             <div className="text-center my-3 d-flex justify-content-center">
               <div className="mx-5 text-center">
-                <a href="/repair-services">
+                <a href="./AboutRepair">
                   <img src={replogo} alt="Repair logo" style={{ maxWidth: "100px", height: "100px", borderRadius: "50%" }} />
                 </a>
                 <div>Repair Services</div>
               </div>
               <div className="mx-5 text-center">
-                <a href="/insurance">
+                <a href="./AboutINS">
                   <img src={inslogo} alt="Insurance logo" style={{ maxWidth: "100px", height: "100px", borderRadius: "50%" }} />
                 </a>
                 <div>Insurance</div>
               </div>
               <div className="mx-5 text-center">
-                <a href="/online-shopping">
+                <a href="./About">
                   <img src={shoplogo} alt="Online Shopping logo" style={{ maxWidth: "100px", height: "100px", borderRadius: "50%" }} />
                 </a>
                 <div>Online Shopping</div>

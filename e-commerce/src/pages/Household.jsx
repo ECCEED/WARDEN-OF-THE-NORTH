@@ -32,7 +32,7 @@ const Computers = () => {
       console.log("data ", response.data);
       if (componentMounted) {
         setData(await response.data);
-        setFilter(await response.data.filter((item) => item.category === "Computers"));
+        setFilter(await response.data.filter((item) => item.category === "Household"));
         setLoading(false);
       }
 

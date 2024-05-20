@@ -17,9 +17,9 @@ function BasicCard({ name, description, price, photo, purchaseId, claimStatus })
     }
   };
 
-  const isClaimable = (status) => {
-    return !['Repayed', 'Rejected', 'Sent To Repair'].includes(status);
-  };
+  // const isClaimable = (status) => {
+  //   return !['Repayed', 'Rejected', 'Sent To Repair'].includes(status);
+  // };
 
   return (
     <Card style={{ width: '18rem', margin: '0 10px 20px 0' }}>
@@ -33,9 +33,9 @@ function BasicCard({ name, description, price, photo, purchaseId, claimStatus })
         <ListGroup.Item>Status: <span className={getStatusColor(claimStatus)}>{claimStatus}</span></ListGroup.Item>
       </ListGroup>
       <Card.Body>
-        {isClaimable(claimStatus) && (
+        {/* {isClaimable(claimStatus) && ( */}
           <Link to={`/claim?purchaseId=${purchaseId}`} className="card-link">Make a Claim</Link>
-        )}
+        {/* )} */}
       </Card.Body>
     </Card>
   );

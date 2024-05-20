@@ -21,10 +21,11 @@ const Claim = () => {
   const purchaseId = searchParams.get('purchaseId');
 
   const storedEmail = localStorage.getItem('email');
-  const [email, setEmail] = useState(storedEmail || '')
-
+  const [email, setEmail] = useState(storedEmail || '');
   const [description, setDescription] = useState('');
   const [selectedIssue, setSelectedIssue] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [error, setError] = useState('');
 
   const handleInputChange = (event) => {
     setEmail(event.target.value);
@@ -48,8 +49,16 @@ const Claim = () => {
         description
       });
       console.log(response.data);
+      setSuccessMessage('Claim submitted successfully.');
+      setError('');
+      // Clear form fields after successful claim
+      setEmail('');
+      setDescription('');
+      setSelectedIssue(null);
     } catch (error) {
       console.error('Error:', error);
+      setError('Failed to submit claim. Please try again.');
+      setSuccessMessage('');
     }
   };
 
@@ -63,6 +72,8 @@ const Claim = () => {
         <div className="row justify-content-center">
           <div className="col-md-8">
             <form onSubmit={handleSubmit}>
+              {successMessage && <div className="alert alert-success">{successMessage}</div>}
+              {error && <div className="alert alert-danger">{error}</div>}
               <Typography variant="subtitle1" gutterBottom>
                 Email<RedStar>*</RedStar>
               </Typography>

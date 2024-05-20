@@ -1,33 +1,39 @@
-import React from 'react'
-import { Categories, Footer, Navbar} from "../components";
-const AboutRepair = () => {
+import React from 'react';
+import { Categories, Footer, Navbar } from "../components";
+import rpr from '../img/repairxd.jpg';
+
+const AboutINS = () => {
   return (
     <>
       <Navbar />
       <div className="container my-3 py-3">
-        <h1 className="text-center">About Us</h1>
+        <h2 className="text-center" style={{ fontSize: "3.6rem", color: "#4169E1", fontFamily: 'Abril Fatface' }}>
+          About Our Repair Shop
+        </h2>
         <hr />
-        <p className="lead text-center">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-          facere doloremque veritatis odit similique sequi. Odit amet fuga nam
-          quam quasi facilis sed doloremque saepe sint perspiciatis explicabo
-          totam vero quas provident ipsam, veritatis nostrum velit quos
-          recusandae est mollitia esse fugit dolore laudantium. Ex vel explicabo
-          earum unde eligendi autem praesentium, doloremque distinctio nesciunt
-          porro tempore quis eaque labore voluptatibus ea necessitatibus
-          exercitationem tempora molestias. Ad consequuntur veniam sequi ullam
-          tempore vel tenetur soluta dolore sunt maxime aliquam corporis est,
-          quo saepe dolorem optio minus sint nemo totam dolorum! Reprehenderit
-          delectus expedita a alias nam recusandae illo debitis repellat libero,
-          quasi explicabo molestiae saepe, dolorem tempore itaque eveniet quam
-          dignissimos blanditiis excepturi harum numquam vel nihil? Ipsum
-        </p>
-          <Categories/>
-        
+        <div className="row">
+          <div className="col-md-6">
+            <p className="lead">
+              At our repair shop, we specialize in fixing all sorts of issues with vehicles. Whether it's a minor dent or a major collision,
+              our skilled technicians are here to restore your vehicle to its former glory. With state-of-the-art equipment and years of experience,
+              we guarantee quality workmanship and attention to detail in every repair job. We understand the importance of your vehicle in your daily
+              life, which is why we strive to provide efficient service without compromising on quality. From bodywork to mechanical repairs,
+              trust us to get your vehicle back on the road safely.
+            </p>
+            <p className="lead">
+              Our repair shop is committed to customer satisfaction, and we go above and beyond to exceed your expectations. With competitive pricing,
+              transparent communication, and friendly staff, we aim to make your repair experience as hassle-free as possible. Whether you're dealing
+              with insurance claims or seeking regular maintenance, our team is here to assist you every step of the way.
+            </p>
+          </div>
+          <div className="col-md-6">
+            <img src={rpr} alt="Repair Stuff" className="img-fluid" />
+          </div>
+        </div>
       </div>
       <Footer />
     </>
   )
 }
 
-export default AboutRepair
+export default AboutINS;
