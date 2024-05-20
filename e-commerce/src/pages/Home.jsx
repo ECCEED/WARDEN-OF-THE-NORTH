@@ -5,7 +5,6 @@ function Home() {
   localStorage.removeItem('theftProtection')
   localStorage.removeItem('end_date')
   localStorage.removeItem('contract_id')
-  localStorage.removeItem('email')
   localStorage.removeItem('product_id')
   return (
     <>

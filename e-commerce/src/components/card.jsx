@@ -17,9 +17,9 @@ function BasicCard({ name, description, price, photo, purchaseId, claimStatus, c
     }
   };
 
-  // const isClaimable = (status) => {
-  //   return !['Repayed', 'Rejected', 'Sent To Repair'].includes(status);
-  // };
+  const isClaimable = (status) => {
+    return !['Repayed', 'Rejected', 'Sent To Repair'].includes(status);
+  };
 
   return (
     <Card style={{ width: '18rem', margin: '0 10px 20px 0' }}>
@@ -37,7 +37,7 @@ function BasicCard({ name, description, price, photo, purchaseId, claimStatus, c
         {contract !== null && isClaimable(claimStatus) && (
 
           <Link to={`/claim?purchaseId=${purchaseId}`} className="card-link">Make a Claim</Link>
-        {/* )} */}
+         )} 
       </Card.Body>
     </Card>
   );

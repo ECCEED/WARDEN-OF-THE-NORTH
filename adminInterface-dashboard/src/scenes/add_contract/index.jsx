@@ -7,6 +7,7 @@ const AddContractForm = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -28,6 +29,11 @@ const AddContractForm = () => {
       );
 
       console.log("response is ", response.data);
+      setSuccessMessage("Contract created successfully!");
+      setPrice("");
+      setName("");
+      setDescription("");
+      setError(null);
     } catch (err) {
       console.log("err adding new Contract ", err);
       setError("Error adding new Contract");
@@ -36,6 +42,7 @@ const AddContractForm = () => {
 
   return (
     <Box m="20px">
+      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
       <form onSubmit={handleFormSubmit}>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <Box
