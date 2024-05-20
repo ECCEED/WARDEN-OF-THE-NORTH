@@ -37,7 +37,6 @@ const Item = ({ title, to, icon, selected, setSelected, adminId }) => {
       icon={icon}
     >
       <Typography>{title}</Typography>
-      {/* Include adminId as a query parameter */}
       <Link to={`${to}?id=${adminId}`} />
     </MenuItem>
   );

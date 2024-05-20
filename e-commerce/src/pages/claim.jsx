@@ -31,10 +31,6 @@ const Claim = () => {
     setEmail(event.target.value);
   };
 
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
-  };
-
   const handleCheckboxChange = (event) => {
     const { name } = event.target;
     setSelectedIssue(name);
@@ -46,7 +42,7 @@ const Claim = () => {
       const response = await axios.post(`http://localhost:7000/claim/sendclaim/${purchaseId}`, {
         email,
         issue: selectedIssue,
-        description
+        description:description
       });
       console.log(response.data);
       setSuccessMessage('Claim submitted successfully.');
@@ -123,12 +119,13 @@ const Claim = () => {
                 <TextField
                   id="description"
                   label="Description"
-                  multiline
-                  rows={5}
                   fullWidth
                   variant="outlined"
+                  margin="normal"
                   value={description}
-                  onChange={handleDescriptionChange}
+                  onChange={(e) => setDescription(e.target.value)}
+                  multiline
+                  rows={4}
                 />
               </div>
 

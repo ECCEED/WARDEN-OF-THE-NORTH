@@ -128,7 +128,7 @@ const DeclineClaim = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Failed to decline claim and send email" });
-    }
+    } 
 }
 const SendtoRepair = async (req, res) => {
     const claimId = req.params.id;
@@ -247,6 +247,7 @@ const getClaimNumbers = async (req, res) => {
     }
 };
 
+
 module.exports = {
     SendClaim,
     getallclaims,
@@ -254,6 +255,7 @@ module.exports = {
     DeclineClaim,
     SendtoRepair,
     RepayClaim,
-    getClaimStatus,
-    getClaimNumbers
+    getClaimStatus, 
+    getClaimNumbers,
+
 }

@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link } from 'react-router-dom';
 
-function BasicCard({ name, description, price, photo, purchaseId, claimStatus }) {
+function BasicCard({ name, description, price, photo, purchaseId, claimStatus, contract }) { // Add contract prop
   const getStatusColor = (status) => {
     switch (status) {
       case 'Repayed':
@@ -33,7 +33,9 @@ function BasicCard({ name, description, price, photo, purchaseId, claimStatus })
         <ListGroup.Item>Status: <span className={getStatusColor(claimStatus)}>{claimStatus}</span></ListGroup.Item>
       </ListGroup>
       <Card.Body>
-        {/* {isClaimable(claimStatus) && ( */}
+
+        {contract !== null && isClaimable(claimStatus) && (
+
           <Link to={`/claim?purchaseId=${purchaseId}`} className="card-link">Make a Claim</Link>
         {/* )} */}
       </Card.Body>

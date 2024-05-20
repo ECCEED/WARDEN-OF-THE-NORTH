@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Button, TextField } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import BasicSelect from '../../components/select_role';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 const Form = () => {
@@ -14,6 +15,37 @@ const Form = () => {
   const [contact, setContact] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [role, setRole] = useState('');
+  const [successMessage, setSuccessMessage] = useState("");
+  const location = useLocation();
+  const [userRole, setUserRole] = useState(null);
+  const searchParams = new URLSearchParams(location.search);
+  const adminId = searchParams.get('id');
+
+  // Define constants for roles
+  const WARDEN_ROLE = 'Warden_admin';
+  const roles = [
+    { value: 1, label: 'Shop_admin' },
+    { value: 2, label: 'Insurance_admin' },
+    { value: 3, label: 'Repair_admin' }
+  ];
+
+  useEffect(() => {
+    const fetchAdminRole = async () => {
+      try {
+        const response = await fetch(`http://localhost:7000/dashboard/${adminId}`);
+        if (response.ok) {
+          const data = await response.json();
+          setUserRole(data.role);
+        } else {
+          console.error("Failed to fetch admin role");
+        }
+      } catch (error) {
+        console.error("Error fetching admin role:", error);
+      }
+    };
+
+    fetchAdminRole();
+  }, [adminId]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -21,6 +53,17 @@ const Form = () => {
     axios.post('http://localhost:7000/form', { name, lastName, email, contact, password, repeatPassword, role: mappedRole })
       .then((result) => {
         console.log(result.data);
+        setName("");
+        setLastName("");
+        setEmail("");
+        setContact("");
+        setPassword("");
+        setRepeatPassword("");
+        setRole('');
+        setSuccessMessage("Agent created successfully!");
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 5000);
       })
       .catch((err) => {
         if (err.response && err.response.data && err.response.data.error) {
@@ -49,10 +92,17 @@ const Form = () => {
     }
   };
 
+  // Determine available roles for selection based on the user's role
+  const filteredRoles = userRole === WARDEN_ROLE ? roles : roles.filter(role => role.label === userRole);
+
   return (
     <Box m="20px">
       <Header title="CREATE AGENT" subtitle="Create a New Agent" />
-
+      {successMessage && (
+        <Box mb={2} color="success.main" textAlign="center">
+          {successMessage}
+        </Box>
+      )}
       <form onSubmit={handleFormSubmit}>
         <Box
           display="grid"
@@ -122,7 +172,7 @@ const Form = () => {
             name="address2"
             sx={{ gridColumn: "span 4" }}
           />
-          <BasicSelect onChange={handleSelectChange} />
+          <BasicSelect value={role} onChange={handleSelectChange} roles={filteredRoles} />
         </Box>
         <Box display="flex" justifyContent="end" mt="20px">
           <Button type="submit" color="secondary" variant="contained">

@@ -26,7 +26,7 @@ const Invoices = () => {
       const response = await axios.get(`http://localhost:7000/invoices/${adminId}`);
       const data = response.data;
       const modifiedData = data.map(row => ({
-        id: row._id,
+       id: row._id,
         name: row.sender.name,
         email: row.sender.email,
         date: new Date(row.timestamp).toLocaleString(),
@@ -37,16 +37,15 @@ const Invoices = () => {
       console.error('Error fetching admin data:', error);
     }
   };
-
   const handleDelete = async (messageId) => {
     try {
       const response = await axios.delete(`http://localhost:7000/invoices/${messageId}`);
       console.log("Deleted: ", response);
       if (response.status === 200) {
-        await fetchData();
+         fetchData(); 
         Swal.fire({
           title: "Deleted!",
-          text: "message has been deleted.",
+          text: "Message has been deleted.",
           icon: "success"
         });
       } else {
@@ -85,7 +84,7 @@ const Invoices = () => {
           const response = await axios.post(`http://localhost:7000/invoices`, result.value);
           console.log("Reply sent: ", response);
           if (response.status === 200) {
-            await fetchData();
+             fetchData(); 
             Swal.fire({
               title: "Sent!",
               text: "Reply message has been sent.",
@@ -105,13 +104,12 @@ const Invoices = () => {
       }
     });
   };
-  
   const columns = [
     // { field: "id", headerName: "ID" },
-    { field: "name", headerName: "Name", flex: 1 },
-    { field: "email", headerName: "Email", flex: 1 },
+    { field: "name", headerName: "name", flex: 1 },
+    { field: "email", headerName: "email", flex: 1 },
     { field: "date", headerName: "Date", flex: 1 },
-    { field: "message", headerName: "Message", flex: 3 },
+    { field: "message", headerName: "message", flex: 3 },
     {
       field: "actions",
       headerName: "Actions",

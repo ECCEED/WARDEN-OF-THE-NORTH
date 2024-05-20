@@ -12,5 +12,6 @@ router.get("/getstatus/:userId",getClaimStatus);
 router.get("/getnumberclaims",getClaimNumbers);
 
 
+
 module.exports = router;
  

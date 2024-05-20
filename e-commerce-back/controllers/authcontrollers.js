@@ -29,7 +29,7 @@ const register = async (req, res) => {
 
         const verificationToken = jwt.sign({ email: email }, 'your_secret_key', { expiresIn: '1h' });
 
-
+ 
         await sendVerificationEmail(name, email, verificationToken);
 
         const hashedPassword = await bcrypt.hash(password, 10);

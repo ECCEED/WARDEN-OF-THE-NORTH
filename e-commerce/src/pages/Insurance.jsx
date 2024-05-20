@@ -85,10 +85,9 @@ const Insurance = () => {
       end_date &&
       insuranceValue &&
       firstName &&
-      lastName &&
       email;
     setFormValid(isFormValid);
-  }, [selectedContract, end_date, insuranceValue, firstName, lastName, email]);
+  }, [selectedContract, end_date, insuranceValue, firstName,email]);
 
     localStorage.setItem('contract_id',selectedContract._id)
   const handleChange = (event) => {
@@ -249,25 +248,6 @@ const Insurance = () => {
                         />
                        
                       </div>
-
-                      <div className="col-sm-6 my-1">
-                        <label htmlFor="lastName" className="form-label">
-                          Last name
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="lastName"
-                          placeholder=""
-                          required
-                          value={lastName}
-                          onChange={(e) => setLastName(e.target.value)}
-                        />
-                        <div className="invalid-feedback">
-                          Valid last name is required.
-                        </div>
-                      </div>
-
                       <div className="col-12 my-1">
                         <label htmlFor="email" className="form-label">
                           Email
