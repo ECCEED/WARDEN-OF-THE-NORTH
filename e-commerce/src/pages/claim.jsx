@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Footer, Navbar } from "../components";
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -10,35 +10,10 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import ReactQuill from "react-quill";
-import 'react-quill/dist/quill.snow.css';
 
 const RedStar = styled('span')({
   color: 'red',
 });
-var toolbarOptions = [
-  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-  ['blockquote', 'code-block'],
-  ['link', 'image', 'video', 'formula'],
-
-  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-  [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
-  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-  [{ 'direction': 'rtl' }],                         // text direction
-
-  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-  [{ 'font': [] }],
-  [{ 'align': [] }],
-
-  ['clean']                                         // remove formatting button
-];
-const module={
-  toolbar:toolbarOptions,
-}
 
 const Claim = () => {
   const location = useLocation();
@@ -55,8 +30,6 @@ const Claim = () => {
   const handleInputChange = (event) => {
     setEmail(event.target.value);
   };
-
-
 
   const handleCheckboxChange = (event) => {
     const { name } = event.target;
@@ -84,7 +57,6 @@ const Claim = () => {
       setSuccessMessage('');
     }
   };
-  console.log(description);
 
   return (
     <>
@@ -144,11 +116,16 @@ const Claim = () => {
                 Description<RedStar>*</RedStar>
               </Typography>
               <div className="mb-3">
-                <ReactQuill
-                modules={module}
-                  theme="snow"
+                <TextField
+                  id="description"
+                  label="Description"
+                  fullWidth
+                  variant="outlined"
+                  margin="normal"
                   value={description}
-                  onChange={setDescription}
+                  onChange={(e) => setDescription(e.target.value)}
+                  multiline
+                  rows={4}
                 />
               </div>
 
