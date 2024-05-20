@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Footer, Navbar } from "../components";
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -10,10 +10,35 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css';
 
 const RedStar = styled('span')({
   color: 'red',
 });
+var toolbarOptions = [
+  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+  ['blockquote', 'code-block'],
+  ['link', 'image', 'video', 'formula'],
+
+  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
+  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+  [{ 'direction': 'rtl' }],                         // text direction
+
+  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+  [{ 'font': [] }],
+  [{ 'align': [] }],
+
+  ['clean']                                         // remove formatting button
+];
+const module={
+  toolbar:toolbarOptions,
+}
 
 const Claim = () => {
   const location = useLocation();
@@ -21,18 +46,17 @@ const Claim = () => {
   const purchaseId = searchParams.get('purchaseId');
 
   const storedEmail = localStorage.getItem('email');
-  const [email, setEmail] = useState(storedEmail || '')
-
+  const [email, setEmail] = useState(storedEmail || '');
   const [description, setDescription] = useState('');
   const [selectedIssue, setSelectedIssue] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [error, setError] = useState('');
 
   const handleInputChange = (event) => {
     setEmail(event.target.value);
   };
 
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
-  };
+
 
   const handleCheckboxChange = (event) => {
     const { name } = event.target;
@@ -45,13 +69,22 @@ const Claim = () => {
       const response = await axios.post(`http://localhost:7000/claim/sendclaim/${purchaseId}`, {
         email,
         issue: selectedIssue,
-        description
+        description:description
       });
       console.log(response.data);
+      setSuccessMessage('Claim submitted successfully.');
+      setError('');
+      // Clear form fields after successful claim
+      setEmail('');
+      setDescription('');
+      setSelectedIssue(null);
     } catch (error) {
       console.error('Error:', error);
+      setError('Failed to submit claim. Please try again.');
+      setSuccessMessage('');
     }
   };
+  console.log(description);
 
   return (
     <>
@@ -63,6 +96,8 @@ const Claim = () => {
         <div className="row justify-content-center">
           <div className="col-md-8">
             <form onSubmit={handleSubmit}>
+              {successMessage && <div className="alert alert-success">{successMessage}</div>}
+              {error && <div className="alert alert-danger">{error}</div>}
               <Typography variant="subtitle1" gutterBottom>
                 Email<RedStar>*</RedStar>
               </Typography>
@@ -109,15 +144,11 @@ const Claim = () => {
                 Description<RedStar>*</RedStar>
               </Typography>
               <div className="mb-3">
-                <TextField
-                  id="description"
-                  label="Description"
-                  multiline
-                  rows={5}
-                  fullWidth
-                  variant="outlined"
+                <ReactQuill
+                modules={module}
+                  theme="snow"
                   value={description}
-                  onChange={handleDescriptionChange}
+                  onChange={setDescription}
                 />
               </div>
 

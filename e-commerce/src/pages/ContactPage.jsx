@@ -7,6 +7,7 @@ const ContactPage = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [selectedValue, setSelectedValue] = useState([]);
+  const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSelectedValue = (value) => {
@@ -32,6 +33,10 @@ const ContactPage = () => {
             setEmail("");
             setMessage("");
             setSelectedValue([]);
+            setSuccessMessage("Message sent successfully!");
+            setTimeout(() => {
+              setSuccessMessage("");
+            }, 5000);
           })
           .catch((err) => {
             if (err.response && err.response.data && err.response.data.error) {
@@ -57,6 +62,9 @@ const ContactPage = () => {
         <hr />
         <div className="row my-4 h-100">
           <div className="col-md-4 col-lg-4 col-sm-8 mx-auto">
+            {successMessage && (
+              <div className="alert alert-success">{successMessage}</div>
+            )}
             <form onSubmit={handleSubmit}>
               <div className="form my-3">
                 <label htmlFor="Email">Email</label>

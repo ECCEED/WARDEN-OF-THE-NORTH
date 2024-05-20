@@ -128,7 +128,7 @@ const DeclineClaim = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Failed to decline claim and send email" });
-    }
+    } 
 }
 const SendtoRepair = async (req, res) => {
     const claimId = req.params.id;
@@ -246,6 +246,18 @@ const getClaimNumbers = async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch number of claims' }); 
     }
 };
+const getCLaimbyId =async(req,res)=>{
+    claimId =req.params.id;
+    try {
+        const specificClaim = await Claim.findById(claimId).select('description');
+        res.json({ specificClaim }); 
+    } catch (error) {
+        console.error('Error fetching  description of claims:', error);
+        res.status(500).json({ error: 'Failed to fetch description of claims' }); 
+
+
+    }
+}
 
 module.exports = {
     SendClaim,
@@ -255,5 +267,6 @@ module.exports = {
     SendtoRepair,
     RepayClaim,
     getClaimStatus,
-    getClaimNumbers
+    getClaimNumbers,
+    getCLaimbyId
 }

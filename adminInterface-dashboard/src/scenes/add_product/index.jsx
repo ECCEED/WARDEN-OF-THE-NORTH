@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { Box, Button, TextField } from "@mui/material"; // Import necessary components from Material-UI
+import { Box, Button, TextField } from "@mui/material";
 
 const AddProductForm = () => {
   const [price, setPrice] = useState("");
@@ -8,6 +8,8 @@ const AddProductForm = () => {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [imgID, setImgID] = useState("");
+  const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -20,22 +22,32 @@ const AddProductForm = () => {
         imgID: imgID,
       };
 
-      console.log("data is ", data);
-
       const response = await axios.post(
         "http://localhost:7000/product/createProduct",
         data
       );
 
       console.log("response is ", response.data);
+      setSuccessMessage("Product created successfully.");
+      setError(null);
+      // Reset form fields
+      setName("");
+      setPrice("");
+      setDescription("");
+      setCategory("");
+      setImgID("");
     } catch (err) {
       console.log("err adding new product ", err);
+      setError("Error adding new product");
+      setSuccessMessage("");
     }
   };
 
   return (
     <Box m="20px">
       <form onSubmit={handleFormSubmit}>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
         <Box
           display="grid"
           gap="30px"

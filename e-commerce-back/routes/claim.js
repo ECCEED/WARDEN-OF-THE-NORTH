@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { SendClaim,getallclaims,ViewcontractDetails,DeclineClaim,SendtoRepair,RepayClaim,getClaimStatus,getClaimNumbers } = require("../controllers/claim");
+const { SendClaim,getallclaims,ViewcontractDetails,DeclineClaim,SendtoRepair,RepayClaim,getClaimStatus,getClaimNumbers,getCLaimbyId } = require("../controllers/claim");
 
 
 router.post("/sendclaim/:purchdId", SendClaim);
@@ -10,6 +10,7 @@ router.post("/sendtorepair/:id",SendtoRepair);
 router.put("/repayclaim/:id",RepayClaim);
 router.get("/getstatus/:userId",getClaimStatus);
 router.get("/getnumberclaims",getClaimNumbers);
+router.get("/getdescclaims/:id",getCLaimbyId);
 
 
 module.exports = router;
