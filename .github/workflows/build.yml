@@ -13,16 +13,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0  # Shallow clones should be disabled for better relevancy of analysis
       
       - name: Set up SonarQube Scanner
         run: |
-          curl -sSLo sonar-scanner.zip https://github.com/SonarSource/sonar-scanner-cli/releases/download/4.6.2.2472/sonar-scanner-cli-4.6.2.2472-linux.zip
-          unzip sonar-scanner.zip
-          export SONAR_SCANNER_HOME=$PWD/sonar-scanner-4.6.2.2472-linux
-          export PATH=$SONAR_SCANNER_HOME/bin:$PATH
+          Invoke-WebRequest -Uri "https://github.com/SonarSource/sonar-scanner-cli/releases/download/4.6.2.2472/sonar-scanner-cli-4.6.2.2472-windows.zip" -OutFile "sonar-scanner.zip"
+          Expand-Archive -Path "sonar-scanner.zip" -DestinationPath "sonar-scanner"
+          $env:SONAR_SCANNER_HOME="$PWD\sonar-scanner\sonar-scanner-4.6.2.2472-windows"
+          $env:PATH="$env:SONAR_SCANNER_HOME\bin;$env:PATH"
           sonar-scanner -X  # Run SonarScanner with debug logging
-
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
